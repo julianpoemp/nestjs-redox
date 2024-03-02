@@ -1,5 +1,7 @@
 {
+  "root": true,
   "ignorePatterns": ["**/*"],
+  "plugins": ["@nx"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -21,10 +23,12 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nx/typescript"],
       "rules": {}
     },
     {
       "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nx/javascript"],
       "rules": {}
     },
     {
@@ -34,6 +38,5 @@
       },
       "rules": {}
     }
-  ],
-  "extends": ["./.eslintrc.base.json"]
+  ]
 }

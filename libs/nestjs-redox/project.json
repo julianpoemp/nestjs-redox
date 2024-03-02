@@ -1,0 +1,24 @@
+{
+  "name": "nestjs-redox",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/nestjs-redox/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/nestjs-redox",
+        "tsConfig": "libs/nestjs-redox/tsconfig.lib.json",
+        "packageJson": "libs/nestjs-redox/package.json",
+        "main": "libs/nestjs-redox/src/index.ts",
+        "assets": ["libs/nestjs-redox/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs nestjs-redox {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    }
+  },
+  "tags": []
+}
