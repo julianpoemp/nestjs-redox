@@ -2,13 +2,19 @@
   "name": "nestjs-redox",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "nx serve demo"
+  },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^10.0.2",
     "@nestjs/core": "^10.0.2",
     "@nestjs/platform-express": "^10.0.2",
+    "@nestjs/platform-fastify": "^10.3.3",
+    "@nestjs/swagger": "^7.3.0",
     "axios": "^1.6.0",
+    "handlebars": "^4.7.8",
+    "js-yaml": "^4.1.0",
     "redoc": "^2.1.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",

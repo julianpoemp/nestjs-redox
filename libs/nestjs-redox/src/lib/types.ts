@@ -1,5 +1,7 @@
 // source: https://github.com/Redocly/redoc/blob/main/docs/config.md
 
+import { OpenAPIObject } from '@nestjs/swagger';
+
 export interface RedocOptions {
   /**
    * Disables search indexing and hides the search box from the API documentation page.
@@ -144,4 +146,55 @@ export interface RedocOptions {
    * If set to true, the API definition is considered untrusted and all HTML/Markdown is sanitized to prevent XSS.
    */
   untrustedDefinition?: boolean;
+  /**
+   * Group tags by categories in the side menu
+   */
+  tagGroups?: {
+    name: string;
+    tags: string[]
+  }[];
+  /**
+   * is used to specify API logo
+   */
+  logo?: {
+    url?: string;
+    backgroundColor?: string;
+    altText?: string;
+    href?: string;
+  };
+  /**
+   * In Swagger two operations can have multiple tags. This property distinguishes between tags that are used to group operations (default) from tags that are used to mark operation with certain trait (true value)
+   */
+  traitTag?: boolean;
+  /**
+   * A list of code samples associated with operation
+   */
+  codeSamples?: {
+    lang: string;
+    label: string;
+    source: string;
+  }[];
+
+  /**
+   * Object that contains examples for the request. Applies when in is body and mime-type is application/json
+   */
+  examples?: any;
+}
+
+export class NestJSRedoxOptions {
+  // served path on that the redoc is available
+  useGlobalPrefix?: boolean = false;
+  disableGoogleFont?: boolean = false;
+
+  /**
+   * Enable this if you want to serve your own redoc installation. You have to install redoc as dependency.
+   * @default: false
+   */
+  standalone?: boolean = false;
+
+  constructor(partial?: Partial<NestJSRedoxOptions>) {
+    if (partial) {
+      Object.assign(this, partial);
+    }
+  }
 }

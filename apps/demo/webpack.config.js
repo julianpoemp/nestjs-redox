@@ -1,4 +1,3 @@
-
 const { NxWebpackPlugin } = require('@nx/webpack');
 const { join } = require('path');
 
@@ -12,10 +11,10 @@ module.exports = {
       compiler: 'tsc',
       main: './src/main.ts',
       tsConfig: './tsconfig.app.json',
-      assets: ["./src/assets"],
+      assets: ['./src/assets'],
       optimization: false,
+      sourceMap: true,
       outputHashing: 'none',
-    })
+    }),
   ],
 };
-

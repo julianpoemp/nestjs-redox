@@ -11,6 +11,8 @@
     }
   ],
   "compilerOptions": {
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "sourceMap": true
   }
 }
