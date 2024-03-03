@@ -1,8 +1,8 @@
 {
-  "name": "demo-e2e",
+  "name": "demo-express-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "implicitDependencies": [
-    "demo"
+    "demo-express"
   ],
   "projectType": "application",
   "targets": {
@@ -12,7 +12,7 @@
         "{workspaceRoot}/coverage/{e2eProjectRoot}"
       ],
       "options": {
-        "jestConfig": "apps/demo-e2e/jest.config.ts",
+        "jestConfig": "apps/demo-express-e2e/jest.config.ts",
         "passWithNoTests": true
       }
     }

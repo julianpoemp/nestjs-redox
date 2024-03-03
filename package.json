@@ -7,6 +7,8 @@
   },
   "private": true,
   "dependencies": {
+    "@fastify/basic-auth": "^5.1.1",
+    "@fastify/static": "^7.0.1",
     "@nestjs/common": "^10.0.2",
     "@nestjs/core": "^10.0.2",
     "@nestjs/platform-express": "^10.0.2",

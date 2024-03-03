@@ -1,21 +1,21 @@
 {
-  "name": "demo",
+  "name": "demo-express",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/demo/src",
+  "sourceRoot": "apps/demo-express/src",
   "projectType": "application",
   "targets": {
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "demo:build"
+        "buildTarget": "demo-express:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "demo:build:development"
+          "buildTarget": "demo-express:build:development"
         },
         "production": {
-          "buildTarget": "demo:build:production"
+          "buildTarget": "demo-express:build:production"
         }
       }
     }

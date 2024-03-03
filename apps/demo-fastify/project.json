@@ -1,0 +1,24 @@
+{
+  "name": "demo-fastify",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/demo-fastify/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "demo-fastify:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "demo-fastify:build:development"
+        },
+        "production": {
+          "buildTarget": "demo-fastify:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

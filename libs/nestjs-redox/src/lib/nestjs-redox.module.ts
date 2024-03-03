@@ -1,4 +1,9 @@
-import { DynamicModule, HttpServer, INestApplication } from '@nestjs/common';
+import {
+  DynamicModule,
+  HttpServer,
+  INestApplication,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { NestjsRedoxService } from './nestjs-redox.service';
 import { NestJSRedoxOptions, RedocOptions } from './types';
 import { OpenAPIObject } from '@nestjs/swagger';
@@ -12,6 +17,13 @@ import * as handlebars from 'handlebars';
 import { REDOC_HANDLEBAR } from './views/index.hbs';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import expressAuth from 'express-basic-auth';
+import { fastifyBasicAuth } from '@fastify/basic-auth';
+import {
+  FastifyInstance,
+  onRequestHookHandler,
+  preHandlerHookHandler,
+  preValidationHookHandler,
+} from 'fastify';
 
 const buildRedocHTML = (
   baseUrlForRedocUI: string,
@@ -147,8 +159,37 @@ export class NestjsRedoxModule {
 
     let html: string;
 
-    httpAdapter.get(finalPath, (req, res) => {
-      const sendPage = () => {
+    if (httpAdapter.getType() === 'fastify') {
+      const instance: FastifyInstance = httpAdapter.getInstance();
+      instance.register(fastifyBasicAuth, {
+        validate: async (username, password, req, reply) => {
+          if (
+            !Object.keys(options.redoxOptions.auth.users).includes(username) ||
+            options.redoxOptions.auth.users[username] !== password
+          ) {
+            return new Error('Undefined!');
+          }
+        },
+        authenticate: {
+          realm: 'Westeros',
+        },
+      });
+      instance.setErrorHandler(function (err, req, reply) {
+        if (err.statusCode === 401) {
+          // this was unauthorized! Display the correct page/message.
+          reply.code(401).send({ was: 'unauthorized' });
+          return;
+        }
+        reply.send(err);
+      });
+    }
+
+    httpAdapter.get(finalPath, (req, res, next) => {
+      const sendPage = (error?: Error) => {
+        if (error) {
+          res.send(new UnauthorizedException());
+          return;
+        }
         res.type('text/html');
 
         if (!document) {
@@ -175,6 +216,12 @@ export class NestjsRedoxModule {
             sendPage();
           });
         } else if (httpAdapter.getType() === 'fastify') {
+          const instance: FastifyInstance = httpAdapter.getInstance();
+          if (instance.basicAuth) {
+            instance.basicAuth(req, res, sendPage);
+          } else {
+            sendPage();
+          }
         }
       } else {
         sendPage();
