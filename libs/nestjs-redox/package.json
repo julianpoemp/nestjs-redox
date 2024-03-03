@@ -1,6 +1,6 @@
 {
   "name": "nestjs-redox",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "dependencies": {
     "handlebars": "^4.7.8",
     "express-basic-auth": "^1.2.1",
