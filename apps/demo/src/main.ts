@@ -40,6 +40,7 @@ async function bootstrap() {
     app as any,
     document,
     {
+      useGlobalPrefix: true,
       disableGoogleFont: true,
       standalone: true,
     },
@@ -51,7 +52,7 @@ async function bootstrap() {
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
   );
-  Logger.log(`Reference: http://localhost:${port}/${globalPrefix}/reference`)
+  Logger.log(`Reference: http://localhost:${port}/${globalPrefix}/reference`);
 }
 
 bootstrap();

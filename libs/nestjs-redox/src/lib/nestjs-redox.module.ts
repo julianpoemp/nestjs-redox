@@ -11,7 +11,7 @@ import { normalizeRelPath } from '@nestjs/swagger/dist/utils/normalize-rel-path'
 import * as handlebars from 'handlebars';
 import { REDOC_HANDLEBAR } from './views/index.hbs';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
-import * as jsyaml from 'js-yaml';
+import expressAuth from 'express-basic-auth';
 
 const buildRedocHTML = (
   baseUrlForRedocUI: string,
@@ -78,11 +78,6 @@ export class NestjsRedoxModule {
         : path
     );
     const urlLastSubdirectory = finalPath.split('/').slice(-1).pop() || '';
-    const validatedGlobalPrefix =
-      options?.useGlobalPrefix && validateGlobalPrefix(globalPrefix)
-        ? validatePath(globalPrefix)
-        : '';
-
     const httpAdapter = app.getHttpAdapter();
 
     NestjsRedoxModule.serveDocuments(
@@ -153,22 +148,37 @@ export class NestjsRedoxModule {
     let html: string;
 
     httpAdapter.get(finalPath, (req, res) => {
-      res.type('text/html');
+      const sendPage = () => {
+        res.type('text/html');
 
-      if (!document) {
-        document = lazyBuildDocument();
+        if (!document) {
+          document = lazyBuildDocument();
+        }
+
+        if (!html) {
+          html = buildRedocHTML(
+            baseUrlForRedocUI,
+            document,
+            options.redoxOptions,
+            options.redocOptions
+          );
+        }
+        res.send(html);
+      };
+
+      if (options.redoxOptions.auth?.enabled) {
+        if (httpAdapter.getType() === 'express') {
+          expressAuth({
+            users: options.redoxOptions.auth.users,
+            challenge: true,
+          })(req, res, () => {
+            sendPage();
+          });
+        } else if (httpAdapter.getType() === 'fastify') {
+        }
+      } else {
+        sendPage();
       }
-
-      if (!html) {
-        html = buildRedocHTML(
-          baseUrlForRedocUI,
-          document,
-          options.redoxOptions,
-          options.redocOptions
-        );
-      }
-
-      res.send(html);
     });
 
     // fastify doesn't resolve 'routePath/' -> 'routePath', that's why we handle it manually

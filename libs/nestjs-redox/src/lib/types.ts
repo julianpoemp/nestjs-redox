@@ -1,7 +1,5 @@
 // source: https://github.com/Redocly/redoc/blob/main/docs/config.md
 
-import { OpenAPIObject } from '@nestjs/swagger';
-
 export interface RedocOptions {
   /**
    * Disables search indexing and hides the search box from the API documentation page.
@@ -151,7 +149,7 @@ export interface RedocOptions {
    */
   tagGroups?: {
     name: string;
-    tags: string[]
+    tags: string[];
   }[];
   /**
    * is used to specify API logo
@@ -185,6 +183,10 @@ export class NestJSRedoxOptions {
   // served path on that the redoc is available
   useGlobalPrefix?: boolean = false;
   disableGoogleFont?: boolean = false;
+  auth?: {
+    enabled?: boolean;
+    users: Record<string, string>;
+  };
 
   /**
    * Enable this if you want to serve your own redoc installation. You have to install redoc as dependency.
