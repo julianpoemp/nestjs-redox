@@ -18,12 +18,7 @@ import { REDOC_HANDLEBAR } from './views/index.hbs';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import expressAuth from 'express-basic-auth';
 import { fastifyBasicAuth } from '@fastify/basic-auth';
-import {
-  FastifyInstance,
-  onRequestHookHandler,
-  preHandlerHookHandler,
-  preValidationHookHandler,
-} from 'fastify';
+import { FastifyInstance } from 'fastify';
 
 const buildRedocHTML = (
   baseUrlForRedocUI: string,
@@ -104,7 +99,7 @@ export class NestjsRedoxModule {
     );
 
     if (options.standalone) {
-      NestjsRedoxModule.serveStatic(finalPath, app);
+      NestjsRedoxModule.serveStatic(finalPath, app, options);
     }
     /**
      * Covers assets fetched through a relative path when Swagger url ends with a slash '/'.
@@ -116,13 +111,18 @@ export class NestjsRedoxModule {
      *  in that case we don't need to serve swagger assets on extra sub path
      */
     if (serveStaticSlashEndingPath !== finalPath) {
-      NestjsRedoxModule.serveStatic(serveStaticSlashEndingPath, app);
+      NestjsRedoxModule.serveStatic(serveStaticSlashEndingPath, app, options);
     }
   }
 
-  private static serveStatic(finalPath: string, app: INestApplication) {
+  private static serveStatic(
+    finalPath: string,
+    app: INestApplication,
+    options: NestJSRedoxOptions
+  ) {
     const httpAdapter = app.getHttpAdapter();
-    const redocAssetsPath = resolve('node_modules/redoc/bundles');
+    const redocAssetsPath =
+      options.redocBundlesDir ?? resolve('node_modules/redoc/bundles');
 
     if (httpAdapter && httpAdapter.getType() === 'fastify') {
       (app as NestFastifyApplication).useStaticAssets({

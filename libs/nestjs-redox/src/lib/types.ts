@@ -187,6 +187,10 @@ export class NestJSRedoxOptions {
     enabled?: boolean;
     users: Record<string, string>;
   };
+  /**
+   * set this if resolving the absolute path to the bundles directory doesn't work. E.g. when using pkg.
+   */
+  redocBundlesDir?: string;
 
   /**
    * Enable this if you want to serve your own redoc installation. You have to install redoc as dependency.
