@@ -1,7 +1,12 @@
 {
   "name": "nestjs-redox",
   "version": "0.0.0",
+  "author": "Julian Poemp",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/julianpoemp/nestjs-redox/issues"
+  },
+  "homepage": "https://github.com/julianpoemp/nestjs-redox",
   "scripts": {
     "start": "nx serve demo",
     "build:lib": "nx build nestjs-redox",

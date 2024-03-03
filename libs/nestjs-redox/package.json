@@ -9,5 +9,12 @@
   "peerDependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/swagger": "^7.3.0"
-  }
+  },
+  "private": false,
+  "author": "Julian Poemp",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/julianpoemp/nestjs-redox/issues"
+  },
+  "homepage": "https://github.com/julianpoemp/nestjs-redox"
 }
