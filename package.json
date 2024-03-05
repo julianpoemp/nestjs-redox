@@ -3,6 +3,15 @@
   "version": "0.0.0",
   "author": "Julian Poemp",
   "license": "MIT",
+  "keywords": [
+    "nestjs",
+    "redoc",
+    "nodejs",
+    "expressjs",
+    "fastify",
+    "open-api",
+    "swagger"
+  ],
   "bugs": {
     "url": "https://github.com/julianpoemp/nestjs-redox/issues"
   },

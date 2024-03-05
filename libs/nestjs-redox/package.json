@@ -16,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/julianpoemp/nestjs-redox/issues"
   },
-  "homepage": "https://github.com/julianpoemp/nestjs-redox"
+  "homepage": "https://github.com/julianpoemp/nestjs-redox",
+  "keywords": [
+    "nestjs",
+    "redoc",
+    "nodejs",
+    "expressjs",
+    "fastify",
+    "open-api",
+    "swagger"
+  ]
 }

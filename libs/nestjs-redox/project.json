@@ -15,7 +15,8 @@
         "packageJson": "libs/nestjs-redox/package.json",
         "main": "libs/nestjs-redox/src/index.ts",
         "assets": [
-          "libs/nestjs-redox/*.md"
+          "libs/nestjs-redox/*.md",
+          "libs/nestjs-redox/LICENSE.txt"
         ]
       }
     },
