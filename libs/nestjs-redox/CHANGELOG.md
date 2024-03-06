@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.1](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.1.0...nestjs-redox-1.1.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* **nestjs-redox:** refused to execute inline script ref [#1](https://github.com/julianpoemp/nestjs-redox/issues/1) ([fa404fa](https://github.com/julianpoemp/nestjs-redox/commit/fa404fa09686991edddcef14cd617c5f145877d6))
+
+
+
 # [1.1.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.0.0...nestjs-redox-1.1.0) (2024-03-03)
 
 
