@@ -1,6 +1,6 @@
-<h1 style="text-align: center;">NestJS-Redox</h1>
+<h1 style="text-align: center;" align="center">NestJS-Redox <img alt="NPM Version" src="https://img.shields.io/npm/v/nestjs-redox"></h1>
 
-<p style="text-align: center;">This <a href="https://docs.nestjs.com/">NestJS</a> module enabled to auto-generate beautiful API docs using <a href="https://www.openapis.org/">Swagger</a> and <a href="https://github.com/Redocly/redoc/tree/main">Redoc</a>. It supports NestJS 10, ExpressJS and Fastify.</p>
+<p style="text-align: center;" align="center">This <a href="https://docs.nestjs.com/">NestJS</a> module enables to auto-generate beautiful API docs using <a href="https://www.openapis.org/">Swagger</a> and <a href="https://github.com/Redocly/redoc/tree/main">Redoc</a>. It supports NestJS 10, ExpressJS and Fastify.</p>
 
 <img src="https://raw.githubusercontent.com/Redocly/redoc/main/demo/redoc-demo.png" />
 
