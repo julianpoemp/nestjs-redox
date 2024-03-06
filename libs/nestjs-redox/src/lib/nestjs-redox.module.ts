@@ -4,7 +4,6 @@ import {
   INestApplication,
   UnauthorizedException,
 } from '@nestjs/common';
-import { NestjsRedoxService } from './nestjs-redox.service';
 import { NestJSRedoxOptions, RedocOptions } from './types';
 import { OpenAPIObject } from '@nestjs/swagger';
 import { getGlobalPrefix } from '@nestjs/swagger/dist/utils/get-global-prefix';
@@ -64,9 +63,8 @@ export class NestjsRedoxModule {
           provide: 'REDOC_OPTIONS',
           useValue: redocOptions,
         },
-        NestjsRedoxService,
       ],
-      exports: [NestjsRedoxService],
+      exports: [],
     };
   }
 
