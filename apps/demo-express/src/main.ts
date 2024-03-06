@@ -43,6 +43,13 @@ async function bootstrap() {
       useGlobalPrefix: true,
       disableGoogleFont: true,
       standalone: true,
+      auth: {
+        enabled: true,
+        users: {
+          "test123": "test123",
+          "test": "test"
+        }
+      }
     },
     redocOptions
   );

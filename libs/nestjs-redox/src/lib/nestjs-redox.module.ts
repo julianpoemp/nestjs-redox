@@ -170,6 +170,9 @@ export class NestjsRedoxModule {
             return new Error('Undefined!');
           }
         },
+        authenticate: {
+          realm: 'NestJSRedox',
+        },
       });
       instance.setErrorHandler(function (err, req, reply) {
         if (err.statusCode === 401) {
