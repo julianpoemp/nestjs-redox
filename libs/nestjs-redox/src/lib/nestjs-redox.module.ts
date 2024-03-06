@@ -170,9 +170,6 @@ export class NestjsRedoxModule {
             return new Error('Undefined!');
           }
         },
-        authenticate: {
-          realm: 'Westeros',
-        },
       });
       instance.setErrorHandler(function (err, req, reply) {
         if (err.statusCode === 401) {
@@ -204,6 +201,7 @@ export class NestjsRedoxModule {
             options.redocOptions
           );
         }
+        this.setContentSecurityHeader(httpAdapter, res);
         res.send(html);
       };
 
@@ -245,6 +243,7 @@ export class NestjsRedoxModule {
             options.redocOptions
           );
         }
+        this.setContentSecurityHeader(httpAdapter, res);
         res.send(html);
       });
     } catch (err) {
@@ -254,6 +253,26 @@ export class NestjsRedoxModule {
        * Method '${method}' already declared for route '${path}' with constraints '${JSON.stringify(constraints)}.
        * We can simply ignore that error here.
        */
+    }
+  }
+
+  /**
+   * fixes content security policy issue see issue #1
+   * @param httpAdapter
+   * @param res
+   * @private
+   */
+  private static setContentSecurityHeader(httpAdapter: HttpServer, res: any) {
+    const header = {
+      name: 'Content-Security-Policy',
+      value:
+        "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; child-src * 'unsafe-inline' 'unsafe-eval' blob:; worker-src * 'unsafe-inline' 'unsafe-eval' blob:; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';",
+    };
+
+    if (httpAdapter.getType() === 'express') {
+      res.setHeader(header.name, header.value);
+    } else if (httpAdapter.getType() === 'fastify') {
+      res.header(header.name, header.value);
     }
   }
 }
