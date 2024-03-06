@@ -3,7 +3,7 @@ const { join } = require('path');
 
 module.exports = {
   output: {
-    path: join(__dirname, '../../dist/apps/demo-express-fastify'),
+    path: join(__dirname, '../../dist/apps/demo-fastify'),
   },
   plugins: [
     new NxWebpackPlugin({
