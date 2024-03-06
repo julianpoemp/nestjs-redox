@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.2](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.1.1...nestjs-redox-1.1.2) (2024-03-06)
+
+
+### Bug Fixes
+
+* **nestjs-redox:** basic auth with fastify not working ([39ff94d](https://github.com/julianpoemp/nestjs-redox/commit/39ff94d5be6e75d4f168a9b027fdcf92a9bf78e1))
+
+
+
 ## [1.1.1](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.1.0...nestjs-redox-1.1.1) (2024-03-06)
 
 
