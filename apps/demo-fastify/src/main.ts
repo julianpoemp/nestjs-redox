@@ -5,14 +5,15 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-
-import { AppModule } from './app/app.module';
 import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { NestjsRedoxModule, RedocOptions } from 'nestjs-redox';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
+import { NestjsRedoxModule, RedocOptions } from 'nestjs-redox';
+
+import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -36,6 +37,11 @@ async function bootstrap() {
 
   const redocOptions: RedocOptions = {
     requiredPropsFirst: true,
+    theme: {
+      sidebar: {
+        width: '222px',
+      },
+    },
   };
 
   const document = SwaggerModule.createDocument(app, swaggerConfig, {
@@ -45,7 +51,7 @@ async function bootstrap() {
 
   NestjsRedoxModule.setup(
     'reference',
-    app as any,
+    app,
     document,
     {
       useGlobalPrefix: true,
