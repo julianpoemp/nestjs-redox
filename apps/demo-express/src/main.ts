@@ -5,10 +5,11 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
+import { NestjsRedoxModule, RedocOptions } from 'nestjs-redox';
 
 import { AppModule } from './app/app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { NestjsRedoxModule, RedocOptions } from 'nestjs-redox';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -28,6 +29,11 @@ async function bootstrap() {
 
   const redocOptions: RedocOptions = {
     requiredPropsFirst: true,
+    theme: {
+      sidebar: {
+        width: '222px',
+      },
+    },
   };
 
   const document = SwaggerModule.createDocument(app, swaggerConfig, {
@@ -37,7 +43,7 @@ async function bootstrap() {
 
   NestjsRedoxModule.setup(
     'reference',
-    app as any,
+    app,
     document,
     {
       useGlobalPrefix: true,
@@ -46,10 +52,10 @@ async function bootstrap() {
       auth: {
         enabled: true,
         users: {
-          "test123": "test123",
-          "test": "test"
-        }
-      }
+          test123: 'test123',
+          test: 'test',
+        },
+      },
     },
     redocOptions
   );
