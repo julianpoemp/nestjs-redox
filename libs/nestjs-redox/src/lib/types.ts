@@ -1,5 +1,7 @@
 // source: https://github.com/Redocly/redoc/blob/main/docs/config.md
 
+import type { ThemeInterface } from './interfaces/theme.interface';
+
 export interface RedocOptions {
   /**
    * Disables search indexing and hides the search box from the API documentation page.
@@ -177,6 +179,8 @@ export interface RedocOptions {
    * Object that contains examples for the request. Applies when in is body and mime-type is application/json
    */
   examples?: any;
+
+  theme?: ThemeInterface;
 }
 
 export class NestJSRedoxOptions {
