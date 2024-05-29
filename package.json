@@ -21,7 +21,9 @@
     "start:demo:fastify": "nx serve demo-fastify",
     "build:lib": "nx build nestjs-redox",
     "release:lib": "nx run nestjs-redox:version --releaseAs=patch --push",
-    "publish:lib": "nx npm nestjs-redox"
+    "publish:lib": "nx npm nestjs-redox",
+    "test": "nx test demo-express && nx test demo-fastify",
+    "format": "nx format"
   },
   "private": true,
   "dependencies": {
