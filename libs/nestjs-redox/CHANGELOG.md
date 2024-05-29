@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.3](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.1.2...nestjs-redox-1.1.3) (2024-05-29)
+
+
+### Bug Fixes
+
+* **nestjs-redox:** add missing theme property ([e20cd7e](https://github.com/julianpoemp/nestjs-redox/commit/e20cd7ee90c222cbc0acc8684d86bc8b9a19c119))
+
+
+
 ## [1.1.2](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.1.1...nestjs-redox-1.1.2) (2024-03-06)
 
 
