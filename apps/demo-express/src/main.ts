@@ -7,7 +7,11 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-import { NestjsRedoxModule, RedocOptions } from 'nestjs-redox';
+import {
+  NestjsRedoxModule,
+  NestJSRedoxOptions,
+  RedocOptions,
+} from 'nestjs-redox';
 
 import { AppModule } from './app/app.module';
 
@@ -36,6 +40,19 @@ async function bootstrap() {
     },
   };
 
+  const redoxOptions: NestJSRedoxOptions = {
+    useGlobalPrefix: true,
+    disableGoogleFont: true,
+    standalone: true,
+    auth: {
+      enabled: true,
+      users: {
+        test123: 'test123',
+        test: 'test',
+      },
+    },
+  };
+
   const document = SwaggerModule.createDocument(app, swaggerConfig, {
     ignoreGlobalPrefix: false,
     operationIdFactory: (controllerKey, methodKey) => methodKey,
@@ -45,18 +62,7 @@ async function bootstrap() {
     'reference',
     app,
     document,
-    {
-      useGlobalPrefix: true,
-      disableGoogleFont: true,
-      standalone: true,
-      auth: {
-        enabled: true,
-        users: {
-          test123: 'test123',
-          test: 'test',
-        },
-      },
-    },
+    redoxOptions,
     redocOptions
   );
 

@@ -25,23 +25,41 @@ By default NestJSRedox automatically loads the redoc bundle from a CDN. If you w
 In your main.ts file, before calling app.listen() insert the module setup:
 
 ```typescript
+import { NestJSRedoxOptions } from 'nestjs-dedox';
+
 /** example swagger config **/
 const swaggerConfig = new DocumentBuilder()
-    .setTitle('API reference')
-    .setDescription('Some description')
-    .setVersion('1.0.0')
-    .addBearerAuth()
-    .addSecurity('roles', {
-      type: 'http',
-      scheme: 'bearer',
-    })
-    .build();
+  .setTitle('API reference')
+  .setDescription('Some description')
+  .setVersion('1.0.0')
+  .addBearerAuth()
+  .addSecurity('roles', {
+    type: 'http',
+    scheme: 'bearer',
+  })
+  .build();
 
 /**
  * official supported options by Redoc
  */
 const redocOptions: RedocOptions = {
   requiredPropsFirst: true,
+};
+
+/**
+ * Redox options
+ */
+const redoxOptions: NestJSRedoxOptions = {
+  useGlobalPrefix: true,
+  disableGoogleFont: true,
+  standalone: true,
+  auth: {
+    enabled: true,
+    users: {
+      user1: 'user1',
+      user2: 'user2',
+    },
+  },
 };
 
 /**
@@ -55,24 +73,7 @@ const document = SwaggerModule.createDocument(app, swaggerConfig, {
 /**
  * Initialize NestjsRedoxModule
  */
-NestjsRedoxModule.setup(
-  'reference',
-  app as any,
-  document,
-  {
-    useGlobalPrefix: true,
-    disableGoogleFont: true,
-    standalone: true,
-    auth: {
-      enabled: true,
-      users: {
-        user1: 'user1',
-        user2: 'user2',
-      },
-    },
-  },
-  redocOptions
-);
+NestjsRedoxModule.setup('reference', app as any, document, redoxOptions, redocOptions);
 ```
 
 If you like this package give it a star ;)
@@ -82,7 +83,16 @@ If you like this package give it a star ;)
 For supported options see [Options](https://github.com/julianpoemp/nestjs-redox/blob/main/libs/nestjs-redox/src/lib/types.ts).
 
 ## Changelog
+
 See [Changelog](https://github.com/julianpoemp/nestjs-redox/blob/main/libs/nestjs-redox/CHANGELOG.md).
+
+## Development
+
+Clone this repository and run `npm install`. You find the library under `libs/nestjs-redox` and the demo apps under `apps/demo-express`or `apps/demo-fastify`. Please run `npm run format` before commiting and make sure to use valid commit messages (see chapter Contributing).
+
+## E2E Testing
+
+Run `npm run test` to run e2e tests.
 
 ## Contributing
 
