@@ -47,6 +47,7 @@
     "@jscutlery/semver": "^5.2.2",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.3.8",
+    "@nx/devkit": "19.1.0",
     "@nx/eslint": "19.1.0",
     "@nx/eslint-plugin": "19.1.0",
     "@nx/jest": "19.1.0",
