@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.4](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.1.3...nestjs-redox-1.1.4) (2024-06-15)
+
+
+### Features
+
+* **nestjs-redox:** generate Redoc page from static URL ([4f35209](https://github.com/julianpoemp/nestjs-redox/commit/4f3520914bcce87b634a6a82484b9897dacab5a4))
+
+
+
 ## [1.1.3](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.1.2...nestjs-redox-1.1.3) (2024-05-29)
 
 
