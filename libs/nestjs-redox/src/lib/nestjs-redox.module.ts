@@ -22,6 +22,7 @@ import { FastifyInstance } from 'fastify';
 const buildRedocHTML = (
   baseUrlForRedocUI: string,
   document: OpenAPIObject,
+  documentURL: string | undefined,
   redoxOptions: NestJSRedoxOptions,
   redocOptions: RedocOptions = {}
 ) => {
@@ -32,6 +33,7 @@ const buildRedocHTML = (
   return template({
     baseUrlForRedocUI,
     document,
+    documentURL,
     redoxOptions,
     redocOptions,
   });
@@ -68,10 +70,18 @@ export class NestjsRedoxModule {
     };
   }
 
+  /**
+   * setups RedoxMdoule with generating and serving redoc html page using expressjs or fastify.
+   * @param path          URI path to the redoc page
+   * @param app           The nest application that is currently serving
+   * @param documentOrURL The OpenAPI Object or a function that creates the object or a static URL
+   * @param options       NestJSRedoxOptions. If undefined default options are used.
+   * @param redocOptions  Officical options by redoc.
+   */
   public static setup(
     path: string,
     app: INestApplication,
-    documentOrFactory: OpenAPIObject | (() => OpenAPIObject),
+    documentOrURL: OpenAPIObject | (() => OpenAPIObject) | string,
     options: NestJSRedoxOptions = new NestJSRedoxOptions(),
     redocOptions?: RedocOptions
   ) {
@@ -89,7 +99,7 @@ export class NestjsRedoxModule {
       finalPath,
       urlLastSubdirectory,
       httpAdapter,
-      documentOrFactory,
+      documentOrURL,
       {
         redocOptions: redocOptions || {},
         redoxOptions: options,
@@ -139,18 +149,23 @@ export class NestjsRedoxModule {
     finalPath: string,
     urlLastSubdirectory: string,
     httpAdapter: HttpServer,
-    documentOrFactory: OpenAPIObject | (() => OpenAPIObject),
+    documentOrURL: OpenAPIObject | (() => OpenAPIObject) | string,
     options: {
       redocOptions: RedocOptions;
       redoxOptions: NestJSRedoxOptions;
     }
   ) {
     let document: OpenAPIObject;
+    const documentURL = typeof documentOrURL === 'string' ? documentOrURL : undefined;
 
     const lazyBuildDocument = () => {
-      return typeof documentOrFactory === 'function'
-        ? documentOrFactory()
-        : documentOrFactory;
+      if (typeof documentOrURL === 'string') {
+        throw new Error('documentFactory is a string.');
+      }
+
+      return typeof documentOrURL === 'function'
+        ? documentOrURL()
+        : documentOrURL;
     };
 
     const baseUrlForRedocUI = normalizeRelPath(`./${urlLastSubdirectory}/`);
@@ -190,7 +205,7 @@ export class NestjsRedoxModule {
         }
         res.type('text/html');
 
-        if (!document) {
+        if (!document && !documentURL) {
           document = lazyBuildDocument();
         }
 
@@ -198,6 +213,7 @@ export class NestjsRedoxModule {
           html = buildRedocHTML(
             baseUrlForRedocUI,
             document,
+            documentURL,
             options.redoxOptions,
             options.redocOptions
           );
@@ -232,7 +248,7 @@ export class NestjsRedoxModule {
       httpAdapter.get(normalizeRelPath(`${finalPath}/`), (req, res) => {
         res.type('text/html');
 
-        if (!document) {
+        if (!document && !documentURL) {
           document = lazyBuildDocument();
         }
 
@@ -240,6 +256,7 @@ export class NestjsRedoxModule {
           html = buildRedocHTML(
             baseUrlForRedocUI,
             document,
+            documentURL,
             options.redoxOptions,
             options.redocOptions
           );

@@ -30,7 +30,13 @@ export const REDOC_HANDLEBAR = `
     <div id="redoc-container"></div>
 
     <script>
-      Redoc.init({{{json document}}}, {{{json redocOptions}}}, document.getElementById('redoc-container'))
+      Redoc.init(
+    {{#if documentURL}}
+      "{{documentURL}}"
+    {{else}}
+      {{{json document}}}
+    {{/if}}
+        , {{{json redocOptions}}}, document.getElementById('redoc-container'))
     </script>
   </body>
 </html>
