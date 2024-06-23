@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.5](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.1.4...nestjs-redox-1.1.5) (2024-06-23)
+
+
+### Bug Fixes
+
+* **nestjs-redox:** RedocOptions.logo and RedocOptions.tagGroups not working ([9d8b1e0](https://github.com/julianpoemp/nestjs-redox/commit/9d8b1e03cb6a9e12b65e30d859c97c5130a4860f))
+
+
+
 ## [1.1.4](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.1.3...nestjs-redox-1.1.4) (2024-06-15)
 
 
