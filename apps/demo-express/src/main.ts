@@ -33,12 +33,15 @@ async function bootstrap() {
 
   const redocOptions: RedocOptions = {
     requiredPropsFirst: true,
+    logo: {
+      url: "https://redocly.github.io/redoc/petstore-logo.png"
+    },
     theme: {
       sidebar: {
         width: '222px',
       },
     },
-  };
+  }
 
   const redoxOptions: NestJSRedoxOptions = {
     useGlobalPrefix: true,

@@ -156,7 +156,8 @@ export class NestjsRedoxModule {
     }
   ) {
     let document: OpenAPIObject;
-    const documentURL = typeof documentOrURL === 'string' ? documentOrURL : undefined;
+    const documentURL =
+      typeof documentOrURL === 'string' ? documentOrURL : undefined;
 
     const lazyBuildDocument = () => {
       if (typeof documentOrURL === 'string') {
@@ -164,8 +165,8 @@ export class NestjsRedoxModule {
       }
 
       return typeof documentOrURL === 'function'
-        ? documentOrURL()
-        : documentOrURL;
+        ? this.applyRedocExtensions(options.redocOptions, documentOrURL())
+        : this.applyRedocExtensions(options.redocOptions, documentOrURL);
     };
 
     const baseUrlForRedocUI = normalizeRelPath(`./${urlLastSubdirectory}/`);
@@ -292,5 +293,29 @@ export class NestjsRedoxModule {
     } else if (httpAdapter.getType() === 'fastify') {
       res.header(header.name, header.value);
     }
+  }
+
+  private static applyRedocExtensions(
+    redocOptions: RedocOptions | undefined,
+    swaggerSpec: OpenAPIObject
+  ) {
+    if (redocOptions?.logo) {
+      const logo = swaggerSpec.info['x-logo'] ?? {};
+      swaggerSpec.info['x-logo'] = {
+        ...logo,
+        url: logo['url'] ?? redocOptions.logo.url,
+        href: logo['href'] ?? redocOptions.logo.href,
+        backgroundColor:
+          logo['backgroundColor'] ?? redocOptions.logo.backgroundColor,
+        altText: logo['altText'] ?? redocOptions.logo.altText,
+      };
+    }
+
+    if (redocOptions?.tagGroups) {
+      swaggerSpec.info['x-tagGroups'] =
+        swaggerSpec.info['x-tagGroups'] ?? redocOptions.tagGroups;
+    }
+
+    return swaggerSpec;
   }
 }
