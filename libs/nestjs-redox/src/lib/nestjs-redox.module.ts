@@ -312,8 +312,8 @@ export class NestjsRedoxModule {
     }
 
     if (redocOptions?.tagGroups) {
-      swaggerSpec.info['x-tagGroups'] =
-        swaggerSpec.info['x-tagGroups'] ?? redocOptions.tagGroups;
+      swaggerSpec['x-tagGroups'] =
+        swaggerSpec['x-tagGroups'] ?? redocOptions.tagGroups;
     }
 
     return swaggerSpec;
