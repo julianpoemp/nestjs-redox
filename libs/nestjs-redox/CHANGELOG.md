@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.1.6](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.1.5...nestjs-redox-1.1.6) (2024-07-22)
+
+
+### Bug Fixes
+
+* **nestjs-redox:** tag groups not working properly ([853e9c6](https://github.com/julianpoemp/nestjs-redox/commit/853e9c641b66a9b2cfdacd0bb749d854d5087098)), closes [#4](https://github.com/julianpoemp/nestjs-redox/issues/4)
+* **nestjs-redox:** wrong type for RedocOptions.expandResponses, should be string ([5f14cde](https://github.com/julianpoemp/nestjs-redox/commit/5f14cdedfdf3f7c689c73ae749fcf7b52294cf0f)), closes [#4](https://github.com/julianpoemp/nestjs-redox/issues/4)
+
+
+
 ## [1.1.5](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.1.4...nestjs-redox-1.1.5) (2024-06-23)
 
 
