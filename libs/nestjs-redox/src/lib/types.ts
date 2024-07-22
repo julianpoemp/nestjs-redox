@@ -18,7 +18,7 @@ export interface RedocOptions {
   /**
    * Controls which responses to expand by default. Specify one or more responses by providing their response codes as a comma-separated list without spaces, for example expandResponses='200,201'. Special value 'all' expands all responses by default. Be careful: this option can slow down documentation rendering time.
    */
-  expandResponses?: boolean;
+  expandResponses?: string;
   /**
    * Automatically expands the single field in a schema.
    */
