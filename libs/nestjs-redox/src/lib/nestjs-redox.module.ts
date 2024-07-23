@@ -18,6 +18,7 @@ import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import expressAuth from 'express-basic-auth';
 import { fastifyBasicAuth } from '@fastify/basic-auth';
 import { FastifyInstance } from 'fastify';
+import { Response } from 'express';
 
 const buildRedocHTML = (
   baseUrlForRedocUI: string,
@@ -220,6 +221,18 @@ export class NestjsRedoxModule {
           );
         }
         this.setContentSecurityHeader(httpAdapter, res);
+
+        if (
+          options.redoxOptions.overwriteHeadersWith &&
+          typeof options.redoxOptions.overwriteHeadersWith === 'object'
+        ) {
+          this.overwriteHeadersWith(
+            httpAdapter,
+            res,
+            options.redoxOptions.overwriteHeadersWith
+          );
+        }
+
         res.send(html);
       };
 
@@ -281,7 +294,10 @@ export class NestjsRedoxModule {
    * @param res
    * @private
    */
-  private static setContentSecurityHeader(httpAdapter: HttpServer, res: any) {
+  private static setContentSecurityHeader(
+    httpAdapter: HttpServer,
+    res: Response
+  ) {
     const header = {
       name: 'Content-Security-Policy',
       value:
@@ -292,6 +308,24 @@ export class NestjsRedoxModule {
       res.setHeader(header.name, header.value);
     } else if (httpAdapter.getType() === 'fastify') {
       res.header(header.name, header.value);
+    }
+  }
+
+  /**
+   * overwrites the HTTP header with that ones from RedoxOptions.
+   * @param newHeaders foreach header use one attribute and value
+   */
+  private static overwriteHeadersWith(
+    httpAdapter: HttpServer,
+    res: Response,
+    newHeaders?: Record<string, string>
+  ) {
+    for (const key of Object.keys(newHeaders ?? {})) {
+      if (httpAdapter.getType() === 'express') {
+        res.setHeader(key, newHeaders[key]);
+      } else if (httpAdapter.getType() === 'fastify') {
+        res.header(key, newHeaders[key]);
+      }
     }
   }
 

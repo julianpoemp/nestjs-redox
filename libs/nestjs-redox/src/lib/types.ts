@@ -202,6 +202,11 @@ export class NestJSRedoxOptions {
    */
   standalone?: boolean = false;
 
+  /**
+   * Overwrites given headers after nestjs-redox set default headers (e.g. content security policy).
+   */
+  overwriteHeadersWith?: Record<string, string>;
+
   constructor(partial?: Partial<NestJSRedoxOptions>) {
     if (partial) {
       Object.assign(this, partial);
