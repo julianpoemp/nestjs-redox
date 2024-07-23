@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.2.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.1.6...nestjs-redox-1.2.0) (2024-07-23)
+
+
+### Features
+
+* **nestjs-redox:** new NestJSRedoxOptions.overwriteHeadersWith overwrites HTTP header for redoc ([1097650](https://github.com/julianpoemp/nestjs-redox/commit/109765041575547d956bb1ab5be16efb40b0d102)), closes [#6](https://github.com/julianpoemp/nestjs-redox/issues/6)
+* **nestjs-redox:** replace redoc cdn link with local svg on standalone ([5a57946](https://github.com/julianpoemp/nestjs-redox/commit/5a579462d4a68c835130de1b94b0188ff528d6b6)), closes [#6](https://github.com/julianpoemp/nestjs-redox/issues/6)
+
+
+
 ## [1.1.6](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.1.5...nestjs-redox-1.1.6) (2024-07-22)
 
 
