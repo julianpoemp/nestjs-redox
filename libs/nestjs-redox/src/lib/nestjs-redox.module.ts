@@ -9,7 +9,7 @@ import { OpenAPIObject } from '@nestjs/swagger';
 import { getGlobalPrefix } from '@nestjs/swagger/dist/utils/get-global-prefix';
 import { validatePath } from '@nestjs/swagger/dist/utils/validate-path.util';
 import { validateGlobalPrefix } from '@nestjs/swagger/dist/utils/validate-global-prefix.util';
-import { resolve } from 'path';
+import { join, resolve } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { normalizeRelPath } from '@nestjs/swagger/dist/utils/normalize-rel-path';
 import * as handlebars from 'handlebars';
@@ -19,6 +19,7 @@ import expressAuth from 'express-basic-auth';
 import { fastifyBasicAuth } from '@fastify/basic-auth';
 import { FastifyInstance } from 'fastify';
 import { Response } from 'express';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 
 const buildRedocHTML = (
   baseUrlForRedocUI: string,
@@ -132,6 +133,19 @@ export class NestjsRedoxModule {
     const httpAdapter = app.getHttpAdapter();
     const redocAssetsPath =
       options.redocBundlesDir ?? resolve('node_modules/redoc/bundles');
+
+    if (existsSync(join(redocAssetsPath, 'redoc.standalone.js'))) {
+      const content = readFileSync(
+        join(redocAssetsPath, 'redoc.standalone.js'),
+        { encoding: 'utf-8' }
+      ).replace(
+        /"(https?:\/\/cdn[^"]*(?:svg))"/gm,
+        "\"data:image/svg+xml, %3Csvg width='300' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%230044d4' d='M249.488 231.49a123.68 123.68 0 0 0-22.86-12.66 111.55 111.55 0 0 0-42.12-214.75h-171.8a8.18 8.18 0 0 0-5.78 14 7.48 7.48 0 0 0 5.78 2.48 95 95 0 1 1 0 190c-.83 0-1.38.27-2.21.27a8 8 0 0 0-6.33 7.71v1.11a7.69 7.69 0 0 0 7.71 7.7h5.52a92.93 92.93 0 0 1 50.66 17.62 95.33 95.33 0 0 1 34.14 45.43 8.27 8.27 0 0 0 7.7 5.52h171.8a7.76 7.76 0 0 0 6.61-3.58 8 8 0 0 0 1.09-7.42 109.06 109.06 0 0 0-39.91-53.43zm-158-37.16a111.62 111.62 0 0 0 32.76-78.75 110 110 0 0 0-32.76-78.74 105.91 105.91 0 0 0-20.37-16.24h113.39a95 95 0 1 1 0 190 3.55 3.55 0 0 0-1.65.27H70.798a109.06 109.06 0 0 0 20.65-16.54h.04zm-13.77 37.16c-1.92-1.37-4.13-2.75-6.33-4.13h117.8a94.79 94.79 0 0 1 80.12 52h-153.63a112 112 0 0 0-38-47.87h.04z' class='cls-1'/%3E%3Cpath fill='%230044d4' d='M158.398 115.58a8.11 8.11 0 0 0 8.26 8.26h82.6a8.26 8.26 0 0 0 0-16.52h-82.6a8.29 8.29 0 0 0-8.26 8.26zM152.298 156.92h82.59a8.26 8.26 0 0 0 0-16.52h-82.59a8.11 8.11 0 0 0-8.26 8.26 8.28 8.28 0 0 0 8.26 8.26zM152.298 90.8h82.59a8.26 8.26 0 0 0 0-16.52h-82.59a8.11 8.11 0 0 0-8.26 8.26 8.46 8.46 0 0 0 8.26 8.26z' class='cls-1'/%3E%3C/svg%3E\""
+      );
+      writeFileSync(join(redocAssetsPath, 'redoc.standalone.js'), content, {
+        encoding: 'utf-8',
+      });
+    }
 
     if (httpAdapter && httpAdapter.getType() === 'fastify') {
       (app as NestFastifyApplication).useStaticAssets({
