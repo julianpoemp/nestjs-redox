@@ -25,7 +25,7 @@ export const REDOC_HANDLEBAR = `
     {{#unless redoxOptions.standalone}}
     <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"> </script>
     {{else}}
-    <script src="{{baseUrlForRedocUI}}/redoc.standalone.js"></script>
+    <script src="{{baseUrlForRedocUI}}redoc.standalone.js"></script>
     {{/unless}}
     <div id="redoc-container"></div>
 
