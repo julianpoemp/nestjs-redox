@@ -9,8 +9,10 @@
 - NestJS 10 support
 - ExpressJS and Fastify support
 - Multi-user auth basic support
-- Option "standalone" for self hosted redoc bundles
+- Option "standalone" for self hosted redoc bundles without requesting a CDN.
 - Option to disable Google fonts
+
+Using the "standalone" Option in combination with "disableGoogleFont" respects the user's privacy and allows to serve the API reference offline.
 
 ## Installation
 
@@ -18,7 +20,8 @@
 
 ### Standalone
 
-By default NestJSRedox automatically loads the redoc bundle from a CDN. If you want to host it yourself, install redoc via `npm install redoc` and set `standalone` in RedoxOptions parameter to true. See chapter "setup".
+By default NestJSRedox automatically loads the redoc bundle from a CDN. If you want to host it yourself, install redoc via `npm install redoc` and set `standalone` in RedoxOptions parameter to true. An additional fix replaces the redoc logo URL with a local saved image.
+See chapter "setup".
 
 ## Setup
 
