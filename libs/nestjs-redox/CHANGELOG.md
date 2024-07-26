@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.2.1](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.2.0...nestjs-redox-1.2.1) (2024-07-26)
+
+
+### Bug Fixes
+
+* **nestjs-redox:** cdn replacement not working without write access to node_modules ([806b694](https://github.com/julianpoemp/nestjs-redox/commit/806b6940f3b648b388453b5b3850092dfdb8d9c9))
+
+
+
 # [1.2.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.1.6...nestjs-redox-1.2.0) (2024-07-23)
 
 
