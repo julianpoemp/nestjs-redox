@@ -41,7 +41,7 @@ const NestJSRedoxStaticMiddlewareExpress = async (
 
 const NestJSRedoxStaticMiddlewareFastify = async (
   eq: FastifyRequest,
-  res: FastifyReply["raw"],
+  res: FastifyReply['raw'],
   next: () => void,
   options: {
     preparedRedocJS: string;
@@ -88,6 +88,8 @@ export class NestjsRedoxModule {
   protected static redocOptions: RedocOptions;
   protected static options: NestJSRedoxOptions;
   protected static preparedRedocJS?: string;
+
+  protected static isFastifyBasicAuthRegistered = false;
 
   static register(
     options?: NestJSRedoxOptions,
@@ -191,7 +193,11 @@ export class NestjsRedoxModule {
 
     if (httpAdapter && httpAdapter.getType() === 'fastify') {
       (app as NestFastifyApplication).use(
-        (request: FastifyRequest, response: FastifyReply["raw"], next: () => void) => {
+        (
+          request: FastifyRequest,
+          response: FastifyReply['raw'],
+          next: () => void
+        ) => {
           return NestJSRedoxStaticMiddlewareFastify(request, response, next, {
             preparedRedocJS: this.preparedRedocJS!,
             baseUrlForRedocUI: finalPath,
@@ -240,19 +246,28 @@ export class NestjsRedoxModule {
 
     if (httpAdapter.getType() === 'fastify') {
       const instance: FastifyInstance = httpAdapter.getInstance();
-      instance.register(fastifyBasicAuth, {
-        validate: async (username, password, req, reply) => {
-          if (
-            !Object.keys(options.redoxOptions.auth.users).includes(username) ||
-            options.redoxOptions.auth.users[username] !== password
-          ) {
-            return new Error('Undefined!');
-          }
-        },
-        authenticate: {
-          realm: 'NestJSRedox',
-        },
-      });
+
+      if (options.redoxOptions.auth?.enabled) {
+        if (!this.isFastifyBasicAuthRegistered) {
+          this.isFastifyBasicAuthRegistered = true;
+
+          instance.register(fastifyBasicAuth, {
+            validate: async (username, password, req, reply) => {
+              if (
+                !Object.keys(options.redoxOptions.auth.users).includes(
+                  username
+                ) ||
+                options.redoxOptions.auth.users[username] !== password
+              ) {
+                return new Error('Undefined!');
+              }
+            },
+            authenticate: {
+              realm: 'NestJSRedox',
+            },
+          });
+        }
+      }
       instance.setErrorHandler(function (err, req, reply) {
         if (err.statusCode === 401) {
           // this was unauthorized! Display the correct page/message.
