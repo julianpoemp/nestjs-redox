@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.2.2](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.2.1...nestjs-redox-1.2.2) (2024-09-11)
+
+
+### Bug Fixes
+
+* **nestjs-redox:** fastify multiple api spec throws "The decorator 'basicAuth' has already been added ([622be00](https://github.com/julianpoemp/nestjs-redox/commit/622be00dbb1d449e84d4b36f74fc4e7a91dfee47)), closes [#7](https://github.com/julianpoemp/nestjs-redox/issues/7)
+
+
+
 ## [1.2.1](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.2.0...nestjs-redox-1.2.1) (2024-07-26)
 
 
