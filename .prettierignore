@@ -3,3 +3,5 @@
 /coverage
 /.nx/cache
 /libs/nestjs-redox/src/lib/views
+
+/.nx/workspace-data
