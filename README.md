@@ -28,7 +28,7 @@ See chapter "setup".
 In your main.ts file, before calling app.listen() insert the module setup:
 
 ```typescript
-import { NestJSRedoxOptions } from 'nestjs-dedox';
+import { NestJSRedoxOptions } from 'nestjs-redox';
 
 /** example swagger config **/
 const swaggerConfig = new DocumentBuilder()
