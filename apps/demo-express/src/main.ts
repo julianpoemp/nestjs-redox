@@ -17,7 +17,7 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('OCTRA API')
+    .setTitle('NESTJS-REDOX API')
     .setDescription('some description')
     .setVersion('1.0.0')
     .addBearerAuth()
