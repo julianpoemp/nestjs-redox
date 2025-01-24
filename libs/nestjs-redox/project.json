@@ -6,27 +6,20 @@
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/nestjs-redox",
         "tsConfig": "libs/nestjs-redox/tsconfig.lib.json",
         "packageJson": "libs/nestjs-redox/package.json",
         "main": "libs/nestjs-redox/src/index.ts",
-        "assets": [
-          "libs/nestjs-redox/*.md",
-          "libs/nestjs-redox/LICENSE.txt"
-        ]
+        "assets": ["libs/nestjs-redox/*.md", "libs/nestjs-redox/LICENSE.txt"]
       }
     },
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
         "preset": "angular",
-        "postTargets": [
-          "nestjs-redox:github"
-        ],
+        "postTargets": ["nestjs-redox:github"],
         "baseBranch": "main",
         "commitMessageFormat": "build(${projectName}): release version ${version}"
       }

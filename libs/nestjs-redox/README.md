@@ -27,15 +27,15 @@ In your main.ts file, before calling app.listen() insert the module setup:
 ```typescript
 /** example swagger config **/
 const swaggerConfig = new DocumentBuilder()
-    .setTitle('API reference')
-    .setDescription('Some description')
-    .setVersion('1.0.0')
-    .addBearerAuth()
-    .addSecurity('roles', {
-      type: 'http',
-      scheme: 'bearer',
-    })
-    .build();
+  .setTitle('API reference')
+  .setDescription('Some description')
+  .setVersion('1.0.0')
+  .addBearerAuth()
+  .addSecurity('roles', {
+    type: 'http',
+    scheme: 'bearer',
+  })
+  .build();
 
 /**
  * official supported options by Redoc
@@ -82,6 +82,7 @@ If you like this package give it a star ;)
 For supported options see [Options](https://github.com/julianpoemp/nestjs-redox/blob/main/libs/nestjs-redox/src/lib/types.ts).
 
 ## Changelog
+
 See [Changelog](https://github.com/julianpoemp/nestjs-redox/blob/main/libs/nestjs-redox/CHANGELOG.md).
 
 ## Contributing

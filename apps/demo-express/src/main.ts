@@ -7,11 +7,7 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-import {
-  NestjsRedoxModule,
-  NestJSRedoxOptions,
-  RedocOptions,
-} from 'nestjs-redox';
+import { NestjsRedoxModule, NestJSRedoxOptions, RedocOptions } from 'nestjs-redox';
 
 import { AppModule } from './app/app.module';
 
@@ -34,14 +30,14 @@ async function bootstrap() {
   const redocOptions: RedocOptions = {
     requiredPropsFirst: true,
     logo: {
-      url: "https://redocly.github.io/redoc/petstore-logo.png"
+      url: 'https://redocly.github.io/redoc/petstore-logo.png',
     },
     theme: {
       sidebar: {
         width: '222px',
       },
     },
-  }
+  };
 
   const redoxOptions: NestJSRedoxOptions = {
     useGlobalPrefix: true,
@@ -61,19 +57,11 @@ async function bootstrap() {
     operationIdFactory: (controllerKey, methodKey) => methodKey,
   });
 
-  NestjsRedoxModule.setup(
-    'reference',
-    app,
-    document,
-    redoxOptions,
-    redocOptions
-  );
+  NestjsRedoxModule.setup('reference', app, document, redoxOptions, redocOptions);
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
-  );
+  Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);
   Logger.log(`Reference: http://localhost:${port}/${globalPrefix}/reference`);
 }
 

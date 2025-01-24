@@ -37,9 +37,7 @@ describe('GET /api/reference', () => {
     expect(res.status()).toBe(200);
 
     const sidebar = await page.$('#redoc-container > div > div.menu-content');
-    const width = await sidebar.evaluate(
-      (el) => el.getBoundingClientRect().width
-    );
+    const width = await sidebar.evaluate((el) => el.getBoundingClientRect().width);
 
     expect(width).toBe(222);
   });

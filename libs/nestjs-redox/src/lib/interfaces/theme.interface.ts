@@ -163,9 +163,7 @@ export interface ResolvedThemeInterface {
 
 export type primitive = string | number | boolean | undefined | null;
 
-export type AdvancedThemeDeep<T> = T extends primitive
-  ? T
-  : AdvancedThemeObject<T>;
+export type AdvancedThemeDeep<T> = T extends primitive ? T : AdvancedThemeObject<T>;
 
 export type AdvancedThemeObject<T> = {
   [P in keyof T]?: AdvancedThemeDeep<T[P]>;
