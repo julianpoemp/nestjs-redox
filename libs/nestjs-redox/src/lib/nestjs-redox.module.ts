@@ -67,12 +67,22 @@ const buildRedocHTML = (
   redocOptions: RedocOptions = {}
 ) => {
   const template = handlebars.compile(REDOC_HANDLEBAR);
-  handlebars.registerHelper('json', (context, options) => {
-    return JSON.stringify(context ?? {});
+  handlebars.registerHelper('json', (context) => {
+    return JSON.stringify(context ?? {}, null, 2);
   });
+
+  let base64Document = btoa(JSON.stringify(document));
+
+  // add line breaks
+  for (let i = 200; i < base64Document.length; i += 200) {
+    base64Document =
+      base64Document.slice(0, i) + '\n' + base64Document.slice(i);
+  }
+
   return template({
     baseUrlForRedocUI,
     document,
+    base64Document,
     documentURL,
     redoxOptions,
     redocOptions,

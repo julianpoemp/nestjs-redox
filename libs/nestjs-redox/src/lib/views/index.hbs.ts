@@ -30,13 +30,20 @@ export const REDOC_HANDLEBAR = `
     <div id="redoc-container"></div>
 
     <script>
-      Redoc.init(
-    {{#if documentURL}}
-      "{{documentURL}}"
-    {{else}}
-      {{{json document}}}
-    {{/if}}
-        , {{{json redocOptions}}}, document.getElementById('redoc-container'))
+      {{#if documentURL}}
+        Redoc.init('{{documentURL}}', {{{json redocOptions}}}, document.getElementById('redoc-container'))
+      {{else}}
+        let base64Document = \`
+{{{ base64Document }}}
+\`;
+
+        try {
+          const spec = JSON.parse(atob(base64Document));
+          Redoc.init(spec, {{{json redocOptions}}}, document.getElementById('redoc-container'))
+        } catch (e) {
+          alert(e?.message ?? e);
+        }
+      {{/if}}
     </script>
   </body>
 </html>
