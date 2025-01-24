@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.3.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.2.2...nestjs-redox-1.3.0) (2025-01-24)
+
+
+### Features
+
+* **nestjs-redox:** improved compatibility for bigger swagger json files ([11d42bf](https://github.com/julianpoemp/nestjs-redox/commit/11d42bfd36f6ebcb577f87030d804d46c4c2cd8a))
+
+
+
 ## [1.2.2](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.2.1...nestjs-redox-1.2.2) (2024-09-11)
 
 ### Bug Fixes
