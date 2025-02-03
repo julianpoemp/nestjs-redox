@@ -54,6 +54,12 @@ const NestJSRedoxStaticMiddlewareFastify = async (
   }
 };
 
+function stringTob64(text: string) {
+  const encoded = new TextEncoder().encode(text);
+  const binaryString = Array.from(encoded, (byte) => String.fromCodePoint(byte)).join('');
+  return Buffer.from(binaryString).toString('base64');
+}
+
 const buildRedocHTML = (
   baseUrlForRedocUI: string,
   document: OpenAPIObject,
@@ -66,7 +72,7 @@ const buildRedocHTML = (
     return JSON.stringify(context ?? {}, null, 2);
   });
 
-  let base64Document = btoa(JSON.stringify(document));
+  let base64Document = stringTob64(JSON.stringify(document));
 
   // add line breaks
   for (let i = 200; i < base64Document.length; i += 200) {

@@ -30,6 +30,12 @@ export const REDOC_HANDLEBAR = `
     <div id="redoc-container"></div>
 
     <script>
+      function b64ToString(base64String) {
+        const binString = atob(base64String);
+        const decodedBytes = Uint8Array.from(binString, (m) => m.codePointAt(0));
+        return new TextDecoder().decode(decodedBytes);
+      }
+
       {{#if documentURL}}
         Redoc.init('{{documentURL}}', {{{json redocOptions}}}, document.getElementById('redoc-container'))
       {{else}}
@@ -38,7 +44,7 @@ export const REDOC_HANDLEBAR = `
 \`;
 
         try {
-          const spec = JSON.parse(atob(base64Document));
+          const spec = JSON.parse(b64ToString(base64Document));
           Redoc.init(spec, {{{json redocOptions}}}, document.getElementById('redoc-container'))
         } catch (e) {
           alert(e?.message ?? e);
