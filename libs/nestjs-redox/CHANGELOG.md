@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.3.1](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.3.0...nestjs-redox-1.3.1) (2025-02-03)
+
+
+### Bug Fixes
+
+* **nestjs-redox:** fix 'invalid character' error encoding JSON spec [#9](https://github.com/julianpoemp/nestjs-redox/issues/9) ([6eea401](https://github.com/julianpoemp/nestjs-redox/commit/6eea40181c465839867433713994c1817ad99f53))
+
+
+
 # [1.3.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.2.2...nestjs-redox-1.3.0) (2025-01-24)
 
 
