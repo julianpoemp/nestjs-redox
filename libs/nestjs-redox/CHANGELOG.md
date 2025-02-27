@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.3.2](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.3.1...nestjs-redox-1.3.2) (2025-02-27)
+
+
+### Bug Fixes
+
+* **nestjs-redox:** invalid encoded text on some languages ref [#10](https://github.com/julianpoemp/nestjs-redox/issues/10) ([f86a600](https://github.com/julianpoemp/nestjs-redox/commit/f86a6004b99255acfaa138225cc77246fc127602))
+
+
+
 ## [1.3.1](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.3.0...nestjs-redox-1.3.1) (2025-02-03)
 
 
