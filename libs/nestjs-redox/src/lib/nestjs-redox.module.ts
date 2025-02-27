@@ -55,9 +55,7 @@ const NestJSRedoxStaticMiddlewareFastify = async (
 };
 
 function stringTob64(text: string) {
-  const encoded = new TextEncoder().encode(text);
-  const binaryString = Array.from(encoded, (byte) => String.fromCodePoint(byte)).join('');
-  return Buffer.from(binaryString).toString('base64');
+  return Buffer.from(text).toString('base64');
 }
 
 const buildRedocHTML = (
@@ -271,6 +269,7 @@ export class NestjsRedoxModule {
         if (options.redoxOptions.overwriteHeadersWith && typeof options.redoxOptions.overwriteHeadersWith === 'object') {
           this.overwriteHeadersWith(httpAdapter, res, options.redoxOptions.overwriteHeadersWith);
         }
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
 
         res.send(html);
       };

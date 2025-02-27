@@ -39,7 +39,7 @@ export const REDOC_HANDLEBAR = `
       {{#if documentURL}}
         Redoc.init('{{documentURL}}', {{{json redocOptions}}}, document.getElementById('redoc-container'))
       {{else}}
-        let base64Document = \`
+        const base64Document = \`
 {{{ base64Document }}}
 \`;
 
