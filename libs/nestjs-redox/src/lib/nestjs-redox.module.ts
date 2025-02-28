@@ -269,7 +269,9 @@ export class NestjsRedoxModule {
         if (options.redoxOptions.overwriteHeadersWith && typeof options.redoxOptions.overwriteHeadersWith === 'object') {
           this.overwriteHeadersWith(httpAdapter, res, options.redoxOptions.overwriteHeadersWith);
         }
-        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        this.overwriteHeadersWith(httpAdapter, res, {
+          'Content-Type': 'text/html; charset=utf-8',
+        });
 
         res.send(html);
       };
