@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.0.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.3.3...nestjs-redox-2.0.0) (2025-04-09)
+
+
+### Features
+
+* **nestjs-redox:** Nest 11 support ([c605e87](https://github.com/julianpoemp/nestjs-redox/commit/c605e870b2c05ebcca918d58dbf88a24d7cab22b))
+
+
+
 ## [1.3.3](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.3.2...nestjs-redox-1.3.3) (2025-02-28)
 
 
