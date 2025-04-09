@@ -6,7 +6,7 @@
 
 ## Features
 
-- NestJS 10 support (NestJS 11 support coming soon)
+- NestJS 11 support
 - ExpressJS and Fastify support
 - Multi-user auth basic support
 - Option "standalone" for self hosted redoc bundles without requesting a CDN.
@@ -15,6 +15,35 @@
 Using the "standalone" Option in combination with "disableGoogleFont" respects the user's privacy and allows to serve the API reference offline.
 
 ⭐️ If you like this package give it a star ;) ⭐️
+
+## Compatibility
+
+<table>
+<thead>
+<tr>
+<th>nestjs-redox</th>
+<th>NestJS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+  v2.x
+</td>
+<td>
+  v11
+</td>
+</tr>
+<tr>
+<td>
+  v1.x
+</td>
+<td>
+  v10
+</td>
+</tr>
+</tbody>
+</table>
 
 ## Installation
 
