@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.1.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.0.0...nestjs-redox-2.1.0) (2025-04-24)
+
+
+### Features
+
+* **nestjs-redox:** CSP with nonce support ([cc5c594](https://github.com/julianpoemp/nestjs-redox/commit/cc5c594ff89aefe881d5ee7df3c32b6f47759f86))
+
+
+
 # [2.0.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.3.3...nestjs-redox-2.0.0) (2025-04-09)
 
 
