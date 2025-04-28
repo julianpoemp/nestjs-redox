@@ -9,11 +9,15 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { NestjsRedoxModule, NestJSRedoxOptions, RedocOptions } from 'nestjs-redox';
 
+import helmet from 'helmet';
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
+  app.use(
+    helmet()
+  );
   app.setGlobalPrefix(globalPrefix);
 
   const swaggerConfig = new DocumentBuilder()

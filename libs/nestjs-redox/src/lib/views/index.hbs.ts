@@ -2,7 +2,6 @@
 
 export const REDOC_HANDLEBAR = `
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
   <head>
     <title>{{ document.info.title }}</title>
@@ -15,11 +14,11 @@ export const REDOC_HANDLEBAR = `
     {{/unless}}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-    body, html, #redoc-container {
-      padding:0;
-      margin:0;
-    }
-</style>
+        body, html, #redoc-container {
+          padding:0;
+          margin:0;
+        }
+    </style>
   </head>
   <body>
     {{#unless redoxOptions.standalone}}
@@ -29,7 +28,7 @@ export const REDOC_HANDLEBAR = `
     {{/unless}}
     <div id="redoc-container"></div>
 
-    <script>
+    <script type="application/javascript" nonce="{{{nonce}}}">
       function b64ToString(base64String) {
         const binString = atob(base64String);
         const decodedBytes = Uint8Array.from(binString, (m) => m.codePointAt(0));
