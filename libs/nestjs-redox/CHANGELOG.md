@@ -2,6 +2,20 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [1.4.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.3.3...nestjs-redox-1.4.0) (2025-04-28)
+
+
+### Bug Fixes
+
+* **nestjs-redox:** library falsely asks for redoc installation on standalone = false ([03f5c80](https://github.com/julianpoemp/nestjs-redox/commit/03f5c80131d2f63205af3fa5a7d41d15b9f1c7b8))
+
+
+### Features
+
+* **nestjs-redox:** CSP with nonce support ([57080dc](https://github.com/julianpoemp/nestjs-redox/commit/57080dc2422534914e43844bc576502f9a5db08c))
+
+
+
 ## [1.3.3](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-1.3.2...nestjs-redox-1.3.3) (2025-02-28)
 
 
