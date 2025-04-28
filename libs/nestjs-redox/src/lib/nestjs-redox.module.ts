@@ -150,18 +150,19 @@ export class NestjsRedoxModule {
 
     if (options.standalone) {
       NestjsRedoxModule.serveStatic(finalPath, app, options);
-    }
-    /**
-     * Covers assets fetched through a relative path when Swagger url ends with a slash '/'.
-     * @see https://github.com/nestjs/swagger/issues/1976
-     */
-    const serveStaticSlashEndingPath = `${finalPath}/${urlLastSubdirectory}`;
-    /**
-     *  serveStaticSlashEndingPath === finalPath when path === '' || path === '/'
-     *  in that case we don't need to serve swagger assets on extra sub path
-     */
-    if (serveStaticSlashEndingPath !== finalPath) {
-      NestjsRedoxModule.serveStatic(serveStaticSlashEndingPath, app, options);
+
+      /**
+       * Covers assets fetched through a relative path when Swagger url ends with a slash '/'.
+       * @see https://github.com/nestjs/swagger/issues/1976
+       */
+      const serveStaticSlashEndingPath = `${finalPath}/${urlLastSubdirectory}`;
+      /**
+       *  serveStaticSlashEndingPath === finalPath when path === '' || path === '/'
+       *  in that case we don't need to serve swagger assets on extra sub path
+       */
+      if (serveStaticSlashEndingPath !== finalPath) {
+        NestjsRedoxModule.serveStatic(serveStaticSlashEndingPath, app, options);
+      }
     }
   }
 

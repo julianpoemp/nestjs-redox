@@ -19,13 +19,13 @@ export const REDOC_HANDLEBAR = `
           margin:0;
         }
     </style>
+    {{#unless redoxOptions.standalone}}
+    <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js" nonce="{{{nonce}}}"> </script>
+    {{else}}
+    <script src="{{baseUrlForRedocUI}}redoc.standalone.js" nonce="{{{nonce}}}"></script>
+    {{/unless}}
   </head>
   <body>
-    {{#unless redoxOptions.standalone}}
-    <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"> </script>
-    {{else}}
-    <script src="{{baseUrlForRedocUI}}redoc.standalone.js"></script>
-    {{/unless}}
     <div id="redoc-container"></div>
 
     <script type="application/javascript" nonce="{{{nonce}}}">
