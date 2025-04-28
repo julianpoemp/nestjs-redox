@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.1.1](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.1.0...nestjs-redox-2.1.1) (2025-04-28)
+
+
+### Bug Fixes
+
+* **nestjs-redox:** library falsely asks for redoc installation on standalone = false ([e81c829](https://github.com/julianpoemp/nestjs-redox/commit/e81c829f3320de70e70730bbe4671d6d29cb255c)), closes [#13](https://github.com/julianpoemp/nestjs-redox/issues/13)
+
+
+
 # [2.1.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.0.0...nestjs-redox-2.1.0) (2025-04-24)
 
 
