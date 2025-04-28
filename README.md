@@ -16,6 +16,35 @@ Using the "standalone" Option in combination with "disableGoogleFont" respects t
 
 ⭐️ If you like this package give it a star ;) ⭐️
 
+## Compatibility
+
+<table>
+<thead>
+<tr>
+<th>nestjs-redox</th>
+<th>NestJS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+  v2.x
+</td>
+<td>
+  v11
+</td>
+</tr>
+<tr>
+<td>
+  v1.x
+</td>
+<td>
+  v10
+</td>
+</tr>
+</tbody>
+</table>
+
 ## Installation
 
 `npm install nestjs-redox`
