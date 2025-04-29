@@ -15,7 +15,14 @@ assignees: ''
 
 ### Additional information
 <!-- Please fill in the additional information -->
+
+**Version of nestjs-redox**: vX.y.z
+
 - [ ] Issue is related to ExpressJS
 - [ ] Issue is related to Fastify
 - [ ] Error appears on the client-side (web-console, network tab)
 - [ ] Error appears on the server-side (terminal etc.)
+
+### Cotnribution
+
+- [ ] I know what to do and want to create a Pull Request for this issue. If I check this I know that I should wait for approval before working on a PR.
