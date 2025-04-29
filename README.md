@@ -202,4 +202,4 @@ Run `npm run test` to run e2e tests.
 
 ## Contributing
 
-If you want to contribute please fork this repository and send a pull request. The commit messages must be formatted after the conventional changelog angular theme. Following scopes are allowed: "nestjs-redox", "demo-express", "demo-fastify" and "project" for changes that affect the whole project.
+If you want to contribute please create a new issue with your feature request. When your issue was approved you can work on a PR. **If you created a PR without approval and we don't see a need for the PR it won't be merged. To create a PR fork this repository and send a pull request. The commit messages must be formatted after the conventional changelog angular theme. Following scopes are allowed: "nestjs-redox", "demo-express", "demo-fastify" and "project" for changes that affect the whole project.
