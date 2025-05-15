@@ -1,6 +1,6 @@
 {
   "name": "nestjs-redox",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "This NestJS module enables to auto-generate beautiful API docs using Swagger and Redoc. It supports NestJS 10, ExpressJS and Fastify.",
   "dependencies": {
     "handlebars": "^4.7.8",
