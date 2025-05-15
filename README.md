@@ -50,7 +50,7 @@ Using the "standalone" Option in combination with "disableGoogleFont" respects t
 
 ## Installation
 
-`npm install nestjs-redox`
+`npm install nestjs-redox@1x`
 
 ### Standalone
 
