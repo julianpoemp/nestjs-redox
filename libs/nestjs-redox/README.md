@@ -1,6 +1,6 @@
-<h1 style="text-align: center;" align="center">NestJS-Redox <a href="https://www.npmjs.com/package/nestjs-redox?activeTab=readme"><img alt="NPM Version" src="https://img.shields.io/npm/v/nestjs-redox"></a></h1>
+<h1 style="text-align: center;" align="center">NestJS-Redox v2.x <a href="https://www.npmjs.com/package/nestjs-redox?activeTab=readme"><img alt="NPM Version" src="https://img.shields.io/npm/v/nestjs-redox"></a></h1>
 
-<p style="text-align: center;" align="center">This <a href="https://docs.nestjs.com/">NestJS</a> module enables to auto-generate beautiful API docs using <a href="https://www.openapis.org/">Swagger</a> and <a href="https://github.com/Redocly/redoc/tree/main">Redoc</a>. It supports NestJS 10, ExpressJS and Fastify.</p>
+<p style="text-align: center;" align="center">This <a href="https://docs.nestjs.com/">NestJS</a> module enables to auto-generate beautiful API docs using <a href="https://www.openapis.org/">Swagger</a> and <a href="https://github.com/Redocly/redoc/tree/main">Redoc</a>. It supports NestJS 11, ExpressJS and Fastify.</p>
 
 <img src="https://raw.githubusercontent.com/Redocly/redoc/main/demo/redoc-demo.png" />
 
@@ -23,24 +23,27 @@ Using the "standalone" Option in combination with "disableGoogleFont" respects t
 <tr>
 <th>nestjs-redox</th>
 <th>NestJS</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>
-  v2.x
+  <a href="https://www.npmjs.com/package/nestjs-redox"><img alt="npm" src="https://img.shields.io/npm/v/nestjs-redox/latest"></a>
 </td>
 <td>
   v11
 </td>
+<td><a href="https://github.com/julianpoemp/nestjs-redox/blob/main/README.md">More information</a></td>
 </tr>
 <tr>
 <td>
-  v1.x
+  <a href="https://www.npmjs.com/package/nestjs-redox/v/1x"><img alt="npm" src="https://img.shields.io/npm/v/nestjs-redox/1x"></a>
 </td>
 <td>
   v10
 </td>
+<td><a href="https://github.com/julianpoemp/nestjs-redox/blob/v1.x/README.md">More information</a></td>
 </tr>
 </tbody>
 </table>
@@ -202,4 +205,4 @@ Run `npm run test` to run e2e tests.
 
 ## Contributing
 
-If you want to contribute please fork this repository and send a pull request. The commit messages must be formatted after the conventional changelog angular theme. Following scopes are allowed: "nestjs-redox", "demo-express", "demo-fastify" and "project" for changes that affect the whole project.
+If you want to contribute please create a new issue with your feature request. When your issue was approved you can work on a PR. **If you created a PR without approval and we don't see a need for the PR it won't be merged. To create a PR fork this repository and send a pull request. The commit messages must be formatted after the conventional changelog angular theme. Following scopes are allowed: "nestjs-redox", "demo-express", "demo-fastify" and "project" for changes that affect the whole project.

@@ -1,4 +1,4 @@
-<h1 style="text-align: center;" align="center">NestJS-Redox <a href="https://www.npmjs.com/package/nestjs-redox?activeTab=readme"><img alt="NPM Version" src="https://img.shields.io/npm/v/nestjs-redox"></a></h1>
+<h1 style="text-align: center;" align="center">NestJS-Redox v2.x <a href="https://www.npmjs.com/package/nestjs-redox?activeTab=readme"><img alt="NPM Version" src="https://img.shields.io/npm/v/nestjs-redox"></a></h1>
 
 <p style="text-align: center;" align="center">This <a href="https://docs.nestjs.com/">NestJS</a> module enables to auto-generate beautiful API docs using <a href="https://www.openapis.org/">Swagger</a> and <a href="https://github.com/Redocly/redoc/tree/main">Redoc</a>. It supports NestJS 11, ExpressJS and Fastify.</p>
 
@@ -23,24 +23,27 @@ Using the "standalone" Option in combination with "disableGoogleFont" respects t
 <tr>
 <th>nestjs-redox</th>
 <th>NestJS</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>
-  v2.x
+  <a href="https://www.npmjs.com/package/nestjs-redox"><img alt="npm" src="https://img.shields.io/npm/v/nestjs-redox/latest"></a>
 </td>
 <td>
   v11
 </td>
+<td><a href="https://github.com/julianpoemp/nestjs-redox/blob/main/README.md">More information</a></td>
 </tr>
 <tr>
 <td>
-  v1.x
+  <a href="https://www.npmjs.com/package/nestjs-redox/v/1x"><img alt="npm" src="https://img.shields.io/npm/v/nestjs-redox/1x"></a>
 </td>
 <td>
   v10
 </td>
+<td><a href="https://github.com/julianpoemp/nestjs-redox/blob/v1.x/README.md">More information</a></td>
 </tr>
 </tbody>
 </table>
