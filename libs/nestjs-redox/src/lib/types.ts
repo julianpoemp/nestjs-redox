@@ -207,6 +207,13 @@ export class NestJSRedoxOptions {
    */
   overwriteHeadersWith?: Record<string, string>;
 
+  /**
+   * Sets a favicon
+   */
+  favicon?: {
+    url?: string;
+  };
+
   constructor(partial?: Partial<NestJSRedoxOptions>) {
     if (partial) {
       Object.assign(this, partial);

@@ -6,8 +6,8 @@ export const REDOC_HANDLEBAR = `
   <head>
     <title>{{ document.info.title }}</title>
     <meta charset="utf-8" />
-    {{#if data.redoxOptions.favicon}}
-    <link rel="shortcut icon" type="image/x-icon" href="{{ redoxOptions.favicon }}" />
+    {{#if redoxOptions.favicon.url }}
+    <link rel="shortcut icon" type="image/x-icon" href="{{{ redoxOptions.favicon.url }}}" />
     {{/if}}
     {{#unless redoxOptions.disableGoogleFont}}
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
