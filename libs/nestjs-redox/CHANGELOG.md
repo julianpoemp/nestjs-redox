@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.2.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.1.2...nestjs-redox-2.2.0) (2025-06-05)
+
+
+### Features
+
+* **nestjs-redox:** add option for favicon ([5adc755](https://github.com/julianpoemp/nestjs-redox/commit/5adc7553040f6c65d2a4f78bf039f9c3ca32e78c))
+
+
+
 ## [2.1.2](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.1.1...nestjs-redox-2.1.2) (2025-05-15)
 
 
