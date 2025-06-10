@@ -324,8 +324,8 @@ export class NestjsRedoxModule {
   }
 
   /**
-   * fixes content security policy issue
-   * see issue #1 and #17
+   * Fixes content security policy issue
+   * see issue #2 and #17
    * @param httpAdapter
    * @param res
    * @private
