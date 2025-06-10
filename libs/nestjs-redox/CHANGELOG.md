@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.2.1](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.2.0...nestjs-redox-2.2.1) (2025-06-10)
+
+
+### Bug Fixes
+
+* **nestjs-redox:** update CSP header to allow Redoc bundle via script-src-elem ([#19](https://github.com/julianpoemp/nestjs-redox/issues/19)) ([23eccc0](https://github.com/julianpoemp/nestjs-redox/commit/23eccc05cf76d6c9e78c0e0d520ff49dfadd4299))
+
+
+
 # [2.2.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.1.2...nestjs-redox-2.2.0) (2025-06-05)
 
 
