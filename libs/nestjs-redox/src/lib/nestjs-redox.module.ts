@@ -324,7 +324,8 @@ export class NestjsRedoxModule {
   }
 
   /**
-   * fixes content security policy issue see issue #1
+   * fixes content security policy issue
+   * see issue #1 and #17
    * @param httpAdapter
    * @param res
    * @private
@@ -332,7 +333,7 @@ export class NestjsRedoxModule {
   private static setContentSecurityHeader(httpAdapter: HttpServer, res: Response, nonce: string) {
     const header = {
       name: 'Content-Security-Policy',
-      value: `script-src 'self' 'nonce-${nonce}'; child-src 'self' 'nonce-${nonce}' blob:;`,
+      value: `script-src 'self' 'nonce-${nonce}'; script-src-elem 'self' 'nonce-${nonce}' https://cdn.redoc.ly; child-src 'self' 'nonce-${nonce}' blob:;`,
     };
 
     if (httpAdapter.getType() === 'express') {
