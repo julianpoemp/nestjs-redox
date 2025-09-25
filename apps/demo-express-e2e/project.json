@@ -1,8 +1,8 @@
 {
   "name": "demo-express-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["demo-express"],
   "projectType": "application",
+  "implicitDependencies": ["demo-express"],
   "targets": {
     "e2e": {
       "executor": "@nx/jest:jest",

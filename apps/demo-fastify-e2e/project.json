@@ -1,8 +1,8 @@
 {
   "name": "demo-fastify-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["demo-fastify"],
   "projectType": "application",
+  "implicitDependencies": ["demo-fastify"],
   "targets": {
     "e2e": {
       "executor": "@nx/jest:jest",
