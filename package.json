@@ -42,14 +42,14 @@
     "handlebars": "^4.7.8",
     "helmet": "^8.1.0",
     "js-yaml": "^4.1.0",
-    "prettier-plugin-organize-imports": "^4.1.0",
-    "redoc": "^2.4.0",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "redoc": "^2.5.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@jscutlery/semver": "^5.5.1",
+    "@jscutlery/semver": "^5.7.1",
     "@nestjs/schematics": "11.0.7",
     "@nestjs/testing": "^11.0.13",
     "@nx/devkit": "21.5.3",
@@ -73,16 +73,16 @@
     "eslint-config-prettier": "10.1.1",
     "jest": "30.0.5",
     "jest-environment-node": "^29.4.1",
-    "ngx-deploy-npm": "^8.4.0",
+    "jest-util": "30.0.5",
+    "ngx-deploy-npm": "^9.0.0",
     "nx": "21.5.3",
-    "prettier": "^2.6.2",
-    "puppeteer": "^22.10.0",
+    "prettier": "^3.6.2",
+    "puppeteer": "^22.15.0",
     "ts-jest": "29.4.4",
     "ts-node": "10.9.1",
     "typescript": "5.9.2",
     "verdaccio": "6.1.2",
-    "webpack-cli": "^5.1.4",
-    "jest-util": "30.0.5"
+    "webpack-cli": "^5.1.4"
   },
   "nx": {
     "includedScripts": []
