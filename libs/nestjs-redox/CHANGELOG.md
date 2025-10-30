@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.3.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.2.1...nestjs-redox-2.3.0) (2025-10-30)
+
+
+### Features
+
+* **nestjs-redox:** new option "serveAPIDoc" for serving swagger JSON via accessible URL ([40d864e](https://github.com/julianpoemp/nestjs-redox/commit/40d864e645723619d6c0c1f8fb0c0d8fe4f5299c)), closes [#20](https://github.com/julianpoemp/nestjs-redox/issues/20)
+
+
+
 ## [2.2.1](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.2.0...nestjs-redox-2.2.1) (2025-06-10)
 
 
