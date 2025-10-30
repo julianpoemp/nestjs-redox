@@ -46,6 +46,10 @@ async function bootstrap() {
   const redoxOptions: NestJSRedoxOptions = {
     useGlobalPrefix: true,
     disableGoogleFont: true,
+    standalone: true,
+    serveAPIDoc: {
+      enabled: true
+    },
     auth: {
       enabled: true,
       users: {

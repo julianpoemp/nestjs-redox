@@ -181,6 +181,14 @@ export interface RedocOptions {
   examples?: any;
 
   theme?: ThemeInterface;
+
+  /**
+   * Set the URLs used to download the OpenAPI description or other documentation related files from the API documentation page.
+   */
+  downloadUrls?: {
+    title: string;
+    url: string;
+  }[];
 }
 
 export class NestJSRedoxOptions {
@@ -212,6 +220,18 @@ export class NestJSRedoxOptions {
    */
   favicon?: {
     url?: string;
+  };
+
+  /**
+   * By default, the swagger JSON file can be downloaded from a Blob URL only. If you need to access the sagger JSON
+   * via URL, use this option.
+   */
+  serveAPIDoc?: {
+    enabled?: boolean;
+    filename?: string;
+  } = {
+    enabled: false,
+    filename: 'swagger.json',
   };
 
   constructor(partial?: Partial<NestJSRedoxOptions>) {

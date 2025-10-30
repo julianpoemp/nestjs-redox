@@ -42,6 +42,10 @@ async function bootstrap() {
     useGlobalPrefix: true,
     disableGoogleFont: true,
     standalone: true,
+    serveAPIDoc: {
+      enabled: true,
+      filename: "swagger.json"
+    },
     auth: {
       enabled: true,
       users: {
