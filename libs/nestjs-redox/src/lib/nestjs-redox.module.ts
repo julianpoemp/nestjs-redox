@@ -180,6 +180,7 @@ export class NestjsRedoxModule {
     options = new NestJSRedoxOptions(options);
     const globalPrefix = getGlobalPrefix(app);
     const finalPath = validatePath(options?.useGlobalPrefix && validateGlobalPrefix(globalPrefix) ? `${globalPrefix}${validatePath(path)}` : path);
+    const swaggerFile = validatePath(options?.useGlobalPrefix && validateGlobalPrefix(globalPrefix) ? `${globalPrefix}${validatePath("")}` : "")
     const urlLastSubdirectory = finalPath.split('/').slice(-1).pop() || '';
     const httpAdapter = app.getHttpAdapter();
 
@@ -190,12 +191,12 @@ export class NestjsRedoxModule {
         downloadUrls: [
           {
             title: 'Download',
-            url: `${path}/${filename}`,
+            url: `${swaggerFile}/${filename}`,
           },
           ...(redocOptions.downloadUrls ?? [])
         ],
       };
-      NestjsRedoxModule.serveAPIDocument(`${finalPath}/${filename}`, app, documentOrURL as any);
+      NestjsRedoxModule.serveAPIDocument(`${swaggerFile}${filename}`, app, documentOrURL as any);
     }
 
     NestjsRedoxModule.serveDocuments(finalPath, urlLastSubdirectory, httpAdapter, documentOrURL, {
