@@ -333,14 +333,6 @@ export class NestjsRedoxModule {
           });
         }
       }
-      instance.setErrorHandler(function (err, req, reply) {
-        if (err.statusCode === 401) {
-          // this was unauthorized! Display the correct page/message.
-          reply.code(401).send({ was: 'unauthorized' });
-          return;
-        }
-        reply.send(err);
-      });
     }
 
     httpAdapter.get(finalPath, (req, res, next) => {
