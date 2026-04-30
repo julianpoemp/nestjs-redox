@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DEMO-FASTIFY" type="NodeJSConfigurationType" node-parameters="./node_modules/nx/dist/bin/nx.js serve demo-fastify --skip-nx-cache" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>

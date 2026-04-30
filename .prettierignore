@@ -5,3 +5,4 @@
 /libs/nestjs-redox/src/lib/views
 
 /.nx/workspace-data
+.nx/self-healing
