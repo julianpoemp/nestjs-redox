@@ -2,6 +2,15 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.3.2](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.3.1...nestjs-redox-2.3.2) (2026-05-28)
+
+
+### Bug Fixes
+
+* **nestjs-redox:** download link for swagger.json still doesn't work ([5feee9c](https://github.com/julianpoemp/nestjs-redox/commit/5feee9cc7f42c8abb700d5c3508b07196bf92851))
+
+
+
 ## [2.3.1](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.3.0...nestjs-redox-2.3.1) (2026-05-28)
 
 
