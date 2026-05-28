@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.3.3](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.3.2...nestjs-redox-2.3.3) (2026-05-28)
+
+
+
 ## [2.3.2](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.3.1...nestjs-redox-2.3.2) (2026-05-28)
 
 
