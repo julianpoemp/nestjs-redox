@@ -3,10 +3,6 @@ import { DynamicModule, HttpServer, INestApplication, UnauthorizedException } fr
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { OpenAPIObject } from '@nestjs/swagger';
-import { getGlobalPrefix } from '@nestjs/swagger/dist/utils/get-global-prefix';
-import { normalizeRelPath } from '@nestjs/swagger/dist/utils/normalize-rel-path';
-import { validateGlobalPrefix } from '@nestjs/swagger/dist/utils/validate-global-prefix.util';
-import { validatePath } from '@nestjs/swagger/dist/utils/validate-path.util';
 import { randomBytes } from 'crypto';
 import { NextFunction, Response } from 'express';
 import expressAuth from 'express-basic-auth';
@@ -15,6 +11,7 @@ import { existsSync, readFileSync } from 'fs';
 import * as handlebars from 'handlebars';
 import { join, resolve } from 'path';
 import { NestJSRedoxOptions, RedocOptions } from './types';
+import { getGlobalPrefix, normalizeRelPath, validateGlobalPrefix, validatePath } from './util';
 import { REDOC_HANDLEBAR } from './views/index.hbs';
 
 const NestJSRedoxStaticAPIDocExpress = async (
@@ -180,7 +177,7 @@ export class NestjsRedoxModule {
     options = new NestJSRedoxOptions(options);
     const globalPrefix = getGlobalPrefix(app);
     const finalPath = validatePath(options?.useGlobalPrefix && validateGlobalPrefix(globalPrefix) ? `${globalPrefix}${validatePath(path)}` : path);
-    const swaggerFile = validatePath(options?.useGlobalPrefix && validateGlobalPrefix(globalPrefix) ? `${globalPrefix}${validatePath("")}` : "")
+    const swaggerFile = validatePath(options?.useGlobalPrefix && validateGlobalPrefix(globalPrefix) ? `${globalPrefix}${validatePath('')}` : '');
     const urlLastSubdirectory = finalPath.split('/').slice(-1).pop() || '';
     const httpAdapter = app.getHttpAdapter();
 
@@ -193,7 +190,7 @@ export class NestjsRedoxModule {
             title: 'Download',
             url: `${swaggerFile}/${filename}`,
           },
-          ...(redocOptions.downloadUrls ?? [])
+          ...(redocOptions.downloadUrls ?? []),
         ],
       };
       NestjsRedoxModule.serveAPIDocument(`${swaggerFile}${filename}`, app, documentOrURL as any);
