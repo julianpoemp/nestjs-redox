@@ -188,7 +188,7 @@ export class NestjsRedoxModule {
         downloadUrls: [
           {
             title: 'Download',
-            url: `${swaggerFile}/${filename}`,
+            url: `${swaggerFile}${filename}`,
           },
           ...(redocOptions.downloadUrls ?? []),
         ],
@@ -254,6 +254,7 @@ export class NestjsRedoxModule {
   private static serveAPIDocument(finalPath: string, app: INestApplication, documentOrURL: OpenAPIObject | (() => OpenAPIObject) | string) {
     const httpAdapter = app.getHttpAdapter();
     let document: OpenAPIObject;
+    console.log("finalPath", finalPath);
 
     const lazyBuildDocument = () => {
       if (typeof documentOrURL === 'string') {
