@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.3.1](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.3.0...nestjs-redox-2.3.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* **nestjs-redox:** invalid download link to swagger.json file ([bc222f9](https://github.com/julianpoemp/nestjs-redox/commit/bc222f9f5b14db4459b7eb845599d50602901328))
+* **nestjs-redox:** nestjs/swagger >= 11.4.3 breakes dist imports ([6a3784e](https://github.com/julianpoemp/nestjs-redox/commit/6a3784e4fd09fd0c9a5eae94171d4f9b200fcabc))
+* **nestjs-redox:** warning about error handling on serving with fastify ([f3fe3e2](https://github.com/julianpoemp/nestjs-redox/commit/f3fe3e25eda22bb24a61cbc11d0c22b74aeb9d3b))
+
+
+
 # [2.3.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.2.1...nestjs-redox-2.3.0) (2025-10-30)
 
 
