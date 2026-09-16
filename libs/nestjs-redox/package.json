@@ -5,11 +5,30 @@
   "dependencies": {
     "handlebars": "^4.7.8",
     "express-basic-auth": "^1.2.1",
-    "@fastify/basic-auth": "^6.0.0"
+    "@fastify/basic-auth": "^6.0.0",
+    "tslib": "^2.3.0"
   },
   "peerDependencies": {
     "@nestjs/common": "^11.0.0",
-    "@nestjs/swagger": "^11.0.0"
+    "@nestjs/swagger": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
+    "@nestjs/platform-fastify": "^11.0.0",
+    "express": "^5.0.0",
+    "fastify": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@nestjs/platform-express": {
+      "optional": true
+    },
+    "@nestjs/platform-fastify": {
+      "optional": true
+    },
+    "express": {
+      "optional": true
+    },
+    "fastify": {
+      "optional": true
+    }
   },
   "private": false,
   "author": "Julian Poemp",
