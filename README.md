@@ -54,8 +54,15 @@ Using the "standalone" Option in combination with "disableGoogleFont" respects t
 
 ### Standalone
 
-By default NestJSRedox automatically loads the redoc bundle from a CDN. If you want to host it yourself, install redoc via `npm install redoc` and set `standalone` in RedoxOptions parameter to true. An additional fix replaces the redoc logo URL with a local saved image.
+By default NestJSRedox automatically loads the redoc bundle from a CDN. If you want to host it yourself, install redoc via `npm install "redoc@^2.5.4"` and set `standalone` in RedoxOptions parameter to true. An additional fix replaces the redoc logo URL with a local saved image.
 See chapter "setup".
+
+### Supported Redoc versions
+
+NestJSRedox supports Redoc `^2.5.0`. Redoc 3 is not supported yet.
+
+- **CDN (default):** NestJSRedox loads a pinned Redoc version (`2.5.4`) from the CDN. You can change it using the `redocVersion` option, e.g. `redocVersion: '2.5.0'`. `redocVersion: 'latest'` always loads the newest Redoc release, which may be an unsupported major version.
+- **Standalone:** redoc is an optional peer dependency (`^2.5.0`), so npm reports a conflict if you install an unsupported version. On startup NestJSRedox also checks the installed version and throws an error if it isn't `^2.5.0`. Set `allowUnsupportedRedocVersion: true` to skip this check.
 
 ## Setup
 

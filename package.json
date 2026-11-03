@@ -43,7 +43,7 @@
     "helmet": "^8.2.0",
     "js-yaml": "^4.1.1",
     "prettier-plugin-organize-imports": "^4.3.0",
-    "redoc": "^2.5.2",
+    "redoc": "^2.5.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0"

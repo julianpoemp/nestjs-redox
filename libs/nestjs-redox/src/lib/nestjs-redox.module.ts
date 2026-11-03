@@ -10,7 +10,7 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { existsSync, readFileSync } from 'fs';
 import * as handlebars from 'handlebars';
 import { join, resolve } from 'path';
-import { NestJSRedoxOptions, RedocOptions } from './types';
+import { DEFAULT_REDOC_VERSION, NestJSRedoxOptions, RedocOptions } from './types';
 import { getGlobalPrefix, normalizeRelPath, validateGlobalPrefix, validatePath } from './util';
 import { REDOC_HANDLEBAR } from './views/index.hbs';
 
@@ -117,8 +117,11 @@ const buildRedocHTML = (
   }
 
   (redocOptions as any).nonce = nonce;
+  const redocVersion = redoxOptions.redocVersion?.trim() || DEFAULT_REDOC_VERSION;
+  const redocCDNVersion = redocVersion === 'latest' || redocVersion.startsWith('v') ? redocVersion : `v${redocVersion}`;
   return template({
     baseUrlForRedocUI,
+    redocCDNVersion,
     document,
     base64Document,
     documentURL,
@@ -219,11 +222,41 @@ export class NestjsRedoxModule {
     }
   }
 
+  /**
+   * Throws an error if the installed redoc version is not in range ^2.5.0. Skips the check if the package.json of redoc
+   * can't be found (e.g. if redocBundlesDir points to a custom directory).
+   */
+  private static checkRedocVersion(redocAssetsPath: string) {
+    const packageJSONPath = join(redocAssetsPath, '..', 'package.json');
+    if (!existsSync(packageJSONPath)) {
+      return;
+    }
+
+    let version: string | undefined;
+    try {
+      version = JSON.parse(readFileSync(packageJSONPath, { encoding: 'utf-8' })).version;
+    } catch {
+      return;
+    }
+    if (typeof version !== 'string') {
+      return;
+    }
+
+    const [major, minor] = version.split('.').map((a) => Number.parseInt(a, 10));
+    if (major !== 2 || minor < 5) {
+      throw new Error(`NestJSRedox: redoc ${version} is not supported. Please install redoc@^2.5.0 or set allowUnsupportedRedocVersion to true.`);
+    }
+  }
+
   private static serveStatic(finalPath: string, app: INestApplication, options: NestJSRedoxOptions) {
     const httpAdapter = app.getHttpAdapter();
     const redocAssetsPath = options.redocBundlesDir ?? resolve('node_modules/redoc/bundles');
 
     if (!this.preparedRedocJS) {
+      if (!options.allowUnsupportedRedocVersion) {
+        NestjsRedoxModule.checkRedocVersion(redocAssetsPath);
+      }
+
       if (existsSync(join(redocAssetsPath, 'redoc.standalone.js'))) {
         this.preparedRedocJS = readFileSync(join(redocAssetsPath, 'redoc.standalone.js'), { encoding: 'utf-8' }).replace(
           /"(https?:\/\/cdn[^"]*(?:svg))"/gm,

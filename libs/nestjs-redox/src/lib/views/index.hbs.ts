@@ -20,7 +20,7 @@ export const REDOC_HANDLEBAR = `
         }
     </style>
     {{#unless redoxOptions.standalone}}
-    <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js" nonce="{{{nonce}}}"> </script>
+    <script src="https://cdn.redoc.ly/redoc/{{redocCDNVersion}}/bundles/redoc.standalone.js" nonce="{{{nonce}}}"> </script>
     {{else}}
     <script src="{{baseUrlForRedocUI}}redoc.standalone.js" nonce="{{{nonce}}}"></script>
     {{/unless}}

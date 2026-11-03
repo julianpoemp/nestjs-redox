@@ -191,6 +191,8 @@ export interface RedocOptions {
   }[];
 }
 
+export const DEFAULT_REDOC_VERSION = '2.5.4';
+
 export class NestJSRedoxOptions {
   // served path on that the redoc is available
   useGlobalPrefix?: boolean = false;
@@ -209,6 +211,20 @@ export class NestJSRedoxOptions {
    * @default: false
    */
   standalone?: boolean = false;
+
+  /**
+   * Redoc version loaded from the CDN (only used if standalone is false). Supported range: ^2.5.0.
+   * Set to "latest" to always load the newest Redoc version (may be a not supported major version).
+   * @default: '2.5.4'
+   */
+  redocVersion?: string = DEFAULT_REDOC_VERSION;
+
+  /**
+   * In standalone mode NestJSRedox checks if the installed redoc version is supported (^2.5.0) and throws an error
+   * otherwise. Enable this to skip the check, e.g. if you want to try out a newer major version of redoc.
+   * @default: false
+   */
+  allowUnsupportedRedocVersion?: boolean = false;
 
   /**
    * Overwrites given headers after nestjs-redox set default headers (e.g. content security policy).
