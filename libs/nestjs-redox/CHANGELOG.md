@@ -2,6 +2,19 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [3.0.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.4.0...nestjs-redox-3.0.0) (2026-11-03)
+
+### Features
+
+* **nestjs-redox:** support redoc v3. Closes [#23](https://github.com/julianpoemp/nestjs-redox/issues/23) ([5277261](https://github.com/julianpoemp/nestjs-redox/commit/52772612f70301de6c40829a85dfe764aed1fb01))
+
+### BREAKING CHANGES
+
+* **nestjs-redox:** Redoc 2 is not supported anymore. The `theme` option and
+`ThemeInterface` were removed, use `customCss` instead. `disableGoogleFont`
+was removed. Several RedocOptions were renamed or removed according to the
+redoc v3 migration guide (e.g. `requiredPropsFirst` -> `sortRequiredPropsFirst`).
+
 # [2.4.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.3.3...nestjs-redox-2.4.0) (2026-11-03)
 
 ### Features
