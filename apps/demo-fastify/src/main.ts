@@ -30,21 +30,16 @@ async function bootstrap() {
     .build();
 
   const redocOptions: RedocOptions = {
-    requiredPropsFirst: true,
-    theme: {
-      sidebar: {
-        width: '222px',
-      },
-    },
+    sortRequiredPropsFirst: true,
   };
 
   const redoxOptions: NestJSRedoxOptions = {
     useGlobalPrefix: true,
-    disableGoogleFont: true,
+    customCss: ':root { --sidebar-width: 222px; }',
     standalone: true,
     serveAPIDoc: {
       enabled: true,
-      filename: "swagger.json"
+      filename: 'swagger.json',
     },
     auth: {
       enabled: true,

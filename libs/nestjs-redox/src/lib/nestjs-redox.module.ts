@@ -14,6 +14,8 @@ import { DEFAULT_REDOC_VERSION, NestJSRedoxOptions, RedocOptions } from './types
 import { getGlobalPrefix, normalizeRelPath, validateGlobalPrefix, validatePath } from './util';
 import { REDOC_HANDLEBAR } from './views/index.hbs';
 
+const REDOC_CDN_URL = 'https://cdn.redoc.ly';
+
 const NestJSRedoxStaticAPIDocExpress = async (
   request: Request,
   response: Response,
@@ -98,7 +100,7 @@ function stringTob64(text: string) {
 
 const buildRedocHTML = (
   baseUrlForRedocUI: string,
-  document: OpenAPIObject,
+  document: OpenAPIObject | undefined,
   documentURL: string | undefined,
   redoxOptions: NestJSRedoxOptions,
   redocOptions: RedocOptions = {},
@@ -106,29 +108,64 @@ const buildRedocHTML = (
 ) => {
   const template = handlebars.compile(REDOC_HANDLEBAR);
   handlebars.registerHelper('json', (context) => {
-    return JSON.stringify(context ?? {}, null, 2);
+    // escape "<" to prevent closing the script tag from inside the JSON
+    return JSON.stringify(context ?? {}, null, 2).replace(/</g, '\\u003c');
   });
 
-  let base64Document = stringTob64(JSON.stringify(document));
+  let base64Document: string | undefined;
+  if (document) {
+    base64Document = stringTob64(JSON.stringify(document));
 
-  // add line breaks
-  for (let i = 200; i < base64Document.length; i += 200) {
-    base64Document = base64Document.slice(0, i) + '\n' + base64Document.slice(i);
+    // add line breaks
+    for (let i = 200; i < base64Document.length; i += 200) {
+      base64Document = base64Document.slice(0, i) + '\n' + base64Document.slice(i);
+    }
   }
 
-  (redocOptions as any).nonce = nonce;
-  const redocVersion = redoxOptions.redocVersion?.trim() || DEFAULT_REDOC_VERSION;
-  const redocCDNVersion = redocVersion === 'latest' || redocVersion.startsWith('v') ? redocVersion : `v${redocVersion}`;
   return template({
-    baseUrlForRedocUI,
-    redocCDNVersion,
-    document,
+    title: document?.info?.title ?? 'API Reference',
+    redocScriptUrl: getRedocScriptURL(baseUrlForRedocUI, redoxOptions),
     base64Document,
     documentURL,
     redoxOptions,
     nonce,
-    redocOptions,
+    redocOptions: buildRedocInitOptions(redocOptions, documentURL),
   });
+};
+
+const getRedocScriptURL = (baseUrlForRedocUI: string, redoxOptions: NestJSRedoxOptions) => {
+  if (redoxOptions.standalone) {
+    return `${baseUrlForRedocUI}redoc.standalone.js`;
+  }
+
+  const redocVersion = redoxOptions.redocVersion?.trim() || DEFAULT_REDOC_VERSION;
+  const redocCDNVersion = redocVersion === 'latest' || redocVersion.startsWith('v') ? redocVersion : `v${redocVersion}`;
+  return `${REDOC_CDN_URL}/redoc/${redocCDNVersion}/bundles/redoc.standalone.js`;
+};
+
+/**
+ * Returns the options passed to Redoc's init function. Removes NestJSRedox helper options that are applied to the
+ * OpenAPI document instead.
+ */
+const buildRedocInitOptions = (redocOptions: RedocOptions, documentURL: string | undefined) => {
+  const { logo, ...initOptions } = redocOptions;
+  delete initOptions.tagGroups;
+  const result: Omit<RedocOptions, 'logo' | 'tagGroups'> = {
+    disableTelemetry: true,
+    ...initOptions,
+  };
+
+  // the document can't be modified if it's loaded from an URL, so we use apiLogo instead of x-logo.
+  if (documentURL && logo?.url && !result.apiLogo) {
+    result.apiLogo = {
+      imageUrl: logo.url,
+      href: logo.href,
+      altText: logo.altText,
+      backgroundColor: logo.backgroundColor,
+    };
+  }
+
+  return result;
 };
 
 /** ------
@@ -193,7 +230,7 @@ export class NestjsRedoxModule {
             title: 'Download',
             url: `${swaggerFile}${filename}`,
           },
-          ...(redocOptions.downloadUrls ?? []),
+          ...(redocOptions?.downloadUrls ?? []),
         ],
       };
       NestjsRedoxModule.serveAPIDocument(`${swaggerFile}${filename}`, app, documentOrURL as any);
@@ -223,7 +260,7 @@ export class NestjsRedoxModule {
   }
 
   /**
-   * Throws an error if the installed redoc version is not in range ^2.5.0. Skips the check if the package.json of redoc
+   * Throws an error if the installed redoc version is not in range ^3.0.0. Skips the check if the package.json of redoc
    * can't be found (e.g. if redocBundlesDir points to a custom directory).
    */
   private static checkRedocVersion(redocAssetsPath: string) {
@@ -242,9 +279,9 @@ export class NestjsRedoxModule {
       return;
     }
 
-    const [major, minor] = version.split('.').map((a) => Number.parseInt(a, 10));
-    if (major !== 2 || minor < 5) {
-      throw new Error(`NestJSRedox: redoc ${version} is not supported. Please install redoc@^2.5.0 or set allowUnsupportedRedocVersion to true.`);
+    const major = Number.parseInt(version.split('.')[0], 10);
+    if (major !== 3) {
+      throw new Error(`NestJSRedox: redoc ${version} is not supported. Please install redoc@^3.0.0 or set allowUnsupportedRedocVersion to true.`);
     }
   }
 
@@ -259,8 +296,11 @@ export class NestjsRedoxModule {
 
       if (existsSync(join(redocAssetsPath, 'redoc.standalone.js'))) {
         this.preparedRedocJS = readFileSync(join(redocAssetsPath, 'redoc.standalone.js'), { encoding: 'utf-8' }).replace(
-          /"(https?:\/\/cdn[^"]*(?:svg))"/gm,
-          "\"data:image/svg+xml, %3Csvg width='300' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%230044d4' d='M249.488 231.49a123.68 123.68 0 0 0-22.86-12.66 111.55 111.55 0 0 0-42.12-214.75h-171.8a8.18 8.18 0 0 0-5.78 14 7.48 7.48 0 0 0 5.78 2.48 95 95 0 1 1 0 190c-.83 0-1.38.27-2.21.27a8 8 0 0 0-6.33 7.71v1.11a7.69 7.69 0 0 0 7.71 7.7h5.52a92.93 92.93 0 0 1 50.66 17.62 95.33 95.33 0 0 1 34.14 45.43 8.27 8.27 0 0 0 7.7 5.52h171.8a7.76 7.76 0 0 0 6.61-3.58 8 8 0 0 0 1.09-7.42 109.06 109.06 0 0 0-39.91-53.43zm-158-37.16a111.62 111.62 0 0 0 32.76-78.75 110 110 0 0 0-32.76-78.74 105.91 105.91 0 0 0-20.37-16.24h113.39a95 95 0 1 1 0 190 3.55 3.55 0 0 0-1.65.27H70.798a109.06 109.06 0 0 0 20.65-16.54h.04zm-13.77 37.16c-1.92-1.37-4.13-2.75-6.33-4.13h117.8a94.79 94.79 0 0 1 80.12 52h-153.63a112 112 0 0 0-38-47.87h.04z' class='cls-1'/%3E%3Cpath fill='%230044d4' d='M158.398 115.58a8.11 8.11 0 0 0 8.26 8.26h82.6a8.26 8.26 0 0 0 0-16.52h-82.6a8.29 8.29 0 0 0-8.26 8.26zM152.298 156.92h82.59a8.26 8.26 0 0 0 0-16.52h-82.59a8.11 8.11 0 0 0-8.26 8.26 8.28 8.28 0 0 0 8.26 8.26zM152.298 90.8h82.59a8.26 8.26 0 0 0 0-16.52h-82.59a8.11 8.11 0 0 0-8.26 8.26 8.46 8.46 0 0 0 8.26 8.26z' class='cls-1'/%3E%3C/svg%3E\"",
+          /([`"])https?:\/\/cdn\.redoc\.ly\/[^`"]*\.svg\1/gm,
+          (_match, quote: string) =>
+            quote +
+            "data:image/svg+xml, %3Csvg width='300' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%230044d4' d='M249.488 231.49a123.68 123.68 0 0 0-22.86-12.66 111.55 111.55 0 0 0-42.12-214.75h-171.8a8.18 8.18 0 0 0-5.78 14 7.48 7.48 0 0 0 5.78 2.48 95 95 0 1 1 0 190c-.83 0-1.38.27-2.21.27a8 8 0 0 0-6.33 7.71v1.11a7.69 7.69 0 0 0 7.71 7.7h5.52a92.93 92.93 0 0 1 50.66 17.62 95.33 95.33 0 0 1 34.14 45.43 8.27 8.27 0 0 0 7.7 5.52h171.8a7.76 7.76 0 0 0 6.61-3.58 8 8 0 0 0 1.09-7.42 109.06 109.06 0 0 0-39.91-53.43zm-158-37.16a111.62 111.62 0 0 0 32.76-78.75 110 110 0 0 0-32.76-78.74 105.91 105.91 0 0 0-20.37-16.24h113.39a95 95 0 1 1 0 190 3.55 3.55 0 0 0-1.65.27H70.798a109.06 109.06 0 0 0 20.65-16.54h.04zm-13.77 37.16c-1.92-1.37-4.13-2.75-6.33-4.13h117.8a94.79 94.79 0 0 1 80.12 52h-153.63a112 112 0 0 0-38-47.87h.04z' class='cls-1'/%3E%3Cpath fill='%230044d4' d='M158.398 115.58a8.11 8.11 0 0 0 8.26 8.26h82.6a8.26 8.26 0 0 0 0-16.52h-82.6a8.29 8.29 0 0 0-8.26 8.26zM152.298 156.92h82.59a8.26 8.26 0 0 0 0-16.52h-82.59a8.11 8.11 0 0 0-8.26 8.26 8.28 8.28 0 0 0 8.26 8.26zM152.298 90.8h82.59a8.26 8.26 0 0 0 0-16.52h-82.59a8.11 8.11 0 0 0-8.26 8.26 8.46 8.46 0 0 0 8.26 8.26z' class='cls-1'/%3E%3C/svg%3E" +
+            quote,
         );
       } else {
         throw new Error("NestJSRedox: Can't find redoc bundle. Please install redoc.");
@@ -446,7 +486,7 @@ export class NestjsRedoxModule {
   private static setContentSecurityHeader(httpAdapter: HttpServer, res: Response, nonce: string) {
     const header = {
       name: 'Content-Security-Policy',
-      value: `script-src 'self' 'nonce-${nonce}'; script-src-elem 'self' 'nonce-${nonce}' https://cdn.redoc.ly; child-src 'self' 'nonce-${nonce}' blob:;`,
+      value: `script-src 'self' 'nonce-${nonce}' ${REDOC_CDN_URL}; script-src-elem 'self' 'nonce-${nonce}' ${REDOC_CDN_URL}; child-src 'self' 'nonce-${nonce}' blob:;`,
     };
 
     if (httpAdapter.getType() === 'express') {

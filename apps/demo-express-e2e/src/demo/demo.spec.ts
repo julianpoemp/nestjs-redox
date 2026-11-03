@@ -23,8 +23,10 @@ describe('GET /api/reference', () => {
     await browser.close();
   });
 
-  it('should work with theme', async () => {
+  it('should render redoc v3 with custom css', async () => {
     const page = await browser.newPage();
+    const pageErrors: string[] = [];
+    page.on('pageerror', (error) => pageErrors.push(error.message));
 
     await page.setExtraHTTPHeaders({
       Authorization: `Basic ${Buffer.from('test:test').toString('base64')}`,
@@ -40,5 +42,9 @@ describe('GET /api/reference', () => {
     const width = await sidebar.evaluate((el) => el.getBoundingClientRect().width);
 
     expect(width).toBe(222);
+
+    const content = await page.$eval('#redoc-container', (el) => el.textContent ?? '');
+    expect(content).toContain('NESTJS-REDOX API');
+    expect(pageErrors).toEqual([]);
   });
 });

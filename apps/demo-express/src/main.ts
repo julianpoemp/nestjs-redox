@@ -15,9 +15,7 @@ import { AppModule } from './app/app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
-  app.use(
-    helmet()
-  );
+  app.use(helmet());
   app.setGlobalPrefix(globalPrefix);
 
   const swaggerConfig = new DocumentBuilder()
@@ -32,23 +30,18 @@ async function bootstrap() {
     .build();
 
   const redocOptions: RedocOptions = {
-    requiredPropsFirst: true,
+    sortRequiredPropsFirst: true,
     logo: {
       url: 'https://redocly.github.io/redoc/petstore-logo.png',
-    },
-    theme: {
-      sidebar: {
-        width: '222px',
-      },
     },
   };
 
   const redoxOptions: NestJSRedoxOptions = {
     useGlobalPrefix: true,
-    disableGoogleFont: true,
+    customCss: ':root { --sidebar-width: 222px; }',
     standalone: true,
     serveAPIDoc: {
-      enabled: true
+      enabled: true,
     },
     auth: {
       enabled: true,

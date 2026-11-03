@@ -1,202 +1,155 @@
-// source: https://github.com/Redocly/redoc/blob/main/docs/config.md
+// source: https://redocly.com/docs/redoc/v3.x/config
+// migration from v2: https://redocly.com/docs/redoc/v3.x/config-migration
 
-import type { ThemeInterface } from './interfaces/theme.interface';
+export interface RedocLogo {
+  url?: string;
+  backgroundColor?: string;
+  altText?: string;
+  href?: string;
+}
+
+export interface RedocApiLogo {
+  imageUrl: string;
+  href?: string;
+  altText?: string;
+  backgroundColor?: string;
+}
 
 export interface RedocOptions {
   /**
-   * Disables search indexing and hides the search box from the API documentation page.
+   * Routing mode for deep links. `hash` keeps the route in the URL fragment. `history` uses path-based URLs and needs
+   * a server that returns the page for every path.
+   * @default 'hash'
    */
-  disableSearch?: boolean;
+  router?: 'hash' | 'history';
   /**
-   * Sets the minimum amount of characters that need to be typed into the search dialog to initiate the search.
+   * Path prefix the docs are served under. Used to build route URLs with `history` routing.
+   * @default '/'
    */
-  minCharacterLengthToInitSearch?: number;
+  basePath?: string;
   /**
-   * Enables or disables expanding default server variables.
+   * Turns off Redoc's anonymous telemetry when `true`.
+   * NestJSRedox disables telemetry by default. Set this to `false` explicitly to enable it.
+   * @default true (NestJSRedox default, Redoc's own default is false)
    */
-  expandDefaultServerVariables?: boolean;
+  disableTelemetry?: boolean;
   /**
-   * Controls which responses to expand by default. Specify one or more responses by providing their response codes as a comma-separated list without spaces, for example expandResponses='200,201'. Special value 'all' expands all responses by default. Be careful: this option can slow down documentation rendering time.
-   */
-  expandResponses?: string;
-  /**
-   * Automatically expands the single field in a schema.
-   */
-  expandSingleSchemaField?: boolean;
-  /**
-   * Hides the 'Download' button for saving the API definition source file. This setting does not make the API definition private; it just hides the button.
-   */
-  hideDownloadButton?: boolean;
-  /**
-   * If set to true, the protocol and hostname are not shown in the operation definition.
-   */
-  hideHostname?: boolean;
-  /**
-   * Hides the loading animation. Does not apply to CLI or Workflows-rendered docs.
+   * Hides the loading spinner shown while the description loads.
    */
   hideLoading?: boolean;
   /**
-   * Hides request payload examples.
+   * Skips resolving and bundling `$ref`s. Requires a description object rather than a URL.
    */
-  hideRequestPayloadSample?: boolean;
+  skipBundle?: boolean;
   /**
-   * If set to true, the description for oneOf/anyOf object is not shown in the schema.
+   * Vertical offset in pixels for pages with a fixed header.
    */
-  hideOneOfDescription?: boolean;
+  scrollYOffset?: number;
   /**
-   * If set to true, the pattern is not shown in the schema.
+   * Sidebar logo. Alternatively use `logo` to set the `x-logo` extension of the OpenAPI document.
+   */
+  apiLogo?: RedocApiLogo;
+  /**
+   * Order and labels of request sample language tabs. Redoc does not generate code samples, a tab appears only when
+   * `x-codeSamples` provides one.
+   */
+  codeSamples?: {
+    languages: {
+      lang: string;
+      label?: string;
+    }[];
+  };
+  /**
+   * Hides the `pattern` constraint in schema fields.
    */
   hideSchemaPattern?: boolean;
   /**
-   * Hides the schema title next to to the type.
+   * Named schemas shown without their properties where referenced.
+   */
+  ignoreNamedSchemas?: string[];
+  /**
+   * Set the URLs used to download the OpenAPI description or other documentation related files.
+   */
+  downloadUrls?: {
+    title?: string;
+    url: string;
+  }[];
+  /**
+   * Maximum depth of generated samples.
+   * @default 8
+   */
+  generatedSamplesMaxDepth?: number;
+  /**
+   * Hides the download buttons. This setting does not make the API definition private.
+   */
+  hideDownloadButtons?: boolean;
+  /**
+   * Hides the prefix of nested properties.
+   * @default false
+   */
+  hidePropertiesPrefix?: boolean;
+  /**
+   * Hides the schema title next to the type.
    */
   hideSchemaTitles?: boolean;
   /**
-   * Hides the Security panel section.
+   * Default expand level for JSON payload samples.
    */
-  hideSecuritySection?: boolean;
+  jsonSamplesExpandLevel?: number | 'all';
   /**
-   *   Hides the request sample tab for requests with only one sample.
+   * Page layout.
+   * @default 'three-panel'
    */
-  hideSingleRequestSampleTab?: boolean;
+  layout?: 'three-panel' | 'stacked';
   /**
-   * Sets the path to the optional HTML file used to modify the layout of the reference docs page.
-   */
-  htmlTemplate?: string;
-  /**
-   * Sets the default expand level for JSON payload samples (response and request body). The default value is 2, and the maximum supported value is '+Infinity'. It can also be configured as a string with the special value all that expands all levels.
-   */
-  jsonSampleExpandLevel?: number;
-  /**
-   * Displays only the specified number of enum values. The remaining values are hidden in an expandable area. If not set, all values are displayed.
+   * Displays only the specified number of enum values. The remaining values are hidden in an expandable area.
+   * @default 10
    */
   maxDisplayedEnumValues?: number;
-  /**
-   * If set to true, selecting an expanded item in the sidebar twice collapses it. Default true.
-   */
-  menuToggle?: boolean;
-  /**
-   * If set to true, the sidebar uses the native scrollbar instead of perfect-scroll. This setting is a scrolling performance optimization for big API definitions.
-   */
-  nativeScrollbars?: boolean;
   /**
    * Shows only required fields in request samples.
    */
   onlyRequiredInSamples?: boolean;
   /**
-   * Shows the path link and HTTP verb in the middle panel instead of the right panel.
+   * If set to true, all HTML/Markdown of the API definition is sanitized to prevent XSS.
    */
-  pathInMiddlePanel?: boolean;
+  sanitize?: boolean;
   /**
-   * If set, the payload sample is inserted at the specified index. If there are N payload samples and the value configured here is bigger than N, the payload sample is inserted last. Indexes start from 0.
+   * Shows a tag with all schema definitions using the given name.
    */
-  payloadSampleIdx?: number;
+  schemaDefinitionsTagName?: string;
+  /**
+   * Expands schemas up to the given level. `all` expands all levels.
+   */
+  schemasExpansionLevel?: number | 'all';
+  /**
+   * Shows specification extensions ('x-' fields). Use true for all or an array of extension names.
+   */
+  showExtensions?: boolean | string[];
   /**
    * Shows required properties in schemas first, ordered in the same order as in the required array.
    */
-  requiredPropsFirst?: boolean;
+  sortRequiredPropsFirst?: boolean;
+
   /**
-   * Specifies whether to automatically expand schemas in Reference docs. Set it to all to expand all schemas regardless of their level, or set it to a number to expand schemas up to the specified level. For example, schemaExpansionLevel: 3 expands schemas up to three levels deep. The default value is 0, meaning no schemas are expanded automatically.
-   */
-  schemaExpansionLevel?: number;
-  /**
-   * Specifies a vertical scroll-offset. This setting is useful when there are fixed positioned elements at the top of the page, such as navbars, headers, etc.
-   *
-   *   Note that you can specify the scrollYOffset value in any of the following ways:
-   *
-   *   as a number - a fixed number of pixels to be used as the offset.
-   *   as a CSS selector - the selector of the element to be used for specifying the offset. The distance from the top of the page to the element's bottom is used as the offset.
-   *   a function (advanced) - a getter function. Must return a number representing the offset (in pixels).
-   */
-  scrollYOffset?: number;
-  /**
-   * Shows specification extensions ('x-' fields). Extensions used by Redoc are ignored. The value can be boolean or an array of strings with names of extensions to display. When used as boolean and set to true, all specification extensions are shown.
-   */
-  showExtensions?: boolean;
-  /**
-   * Shows object schema example in the properties; default false.
-   */
-  showObjectSchemaExamples?: boolean;
-  /**
-   * When set to true, shows the HTTP request method for webhooks in operations and in the sidebar.
-   */
-  showWebhookVerb?: boolean;
-  /**
-   * Shows only unique oneOf types in the label without titles.
-   */
-  simpleOneOfTypeLabel?: boolean;
-  /**
-   *   When set to true, sorts all enum values in all schemas alphabetically.
-   */
-  sortEnumValuesAlphabetically?: boolean;
-  /**
-   * When set to true, sorts operations in the navigation sidebar and in the middle panel alphabetically.
-   */
-  sortOperationsAlphabetically?: boolean;
-  /**
-   * When set to true, sorts properties in all schemas alphabetically.
-   */
-  sortPropsAlphabetically?: boolean;
-  /**
-   * When set to true, sorts tags in the navigation sidebar and in the middle panel alphabetically. Note that only tags are sorted alphabetically in the middle panel, not the operations associated with each tag. To sort operations alphabetically as well, you must set the sortOperationsAlphabetically setting to true
-   * @default true
-   */
-  sortTagsAlphabetically?: boolean;
-  /**
-   * If set to true, the API definition is considered untrusted and all HTML/Markdown is sanitized to prevent XSS.
-   */
-  untrustedDefinition?: boolean;
-  /**
-   * Group tags by categories in the side menu
+   * NestJSRedox helper: groups tags by categories in the side menu (sets `x-tagGroups` in the OpenAPI document).
    */
   tagGroups?: {
     name: string;
     tags: string[];
   }[];
   /**
-   * is used to specify API logo
+   * NestJSRedox helper: specifies the API logo (sets `info.x-logo` in the OpenAPI document or `apiLogo` if the document
+   * is loaded from an URL).
    */
-  logo?: {
-    url?: string;
-    backgroundColor?: string;
-    altText?: string;
-    href?: string;
-  };
-  /**
-   * In Swagger two operations can have multiple tags. This property distinguishes between tags that are used to group operations (default) from tags that are used to mark operation with certain trait (true value)
-   */
-  traitTag?: boolean;
-  /**
-   * A list of code samples associated with operation
-   */
-  codeSamples?: {
-    lang: string;
-    label: string;
-    source: string;
-  }[];
-
-  /**
-   * Object that contains examples for the request. Applies when in is body and mime-type is application/json
-   */
-  examples?: any;
-
-  theme?: ThemeInterface;
-
-  /**
-   * Set the URLs used to download the OpenAPI description or other documentation related files from the API documentation page.
-   */
-  downloadUrls?: {
-    title: string;
-    url: string;
-  }[];
+  logo?: RedocLogo;
 }
 
-export const DEFAULT_REDOC_VERSION = '2.5.4';
+export const DEFAULT_REDOC_VERSION = '3.0.1';
 
 export class NestJSRedoxOptions {
   // served path on that the redoc is available
   useGlobalPrefix?: boolean = false;
-  disableGoogleFont?: boolean = false;
   auth?: {
     enabled?: boolean;
     users: Record<string, string>;
@@ -213,18 +166,25 @@ export class NestJSRedoxOptions {
   standalone?: boolean = false;
 
   /**
-   * Redoc version loaded from the CDN (only used if standalone is false). Supported range: ^2.5.0.
-   * Set to "latest" to always load the newest Redoc version (may be a not supported major version).
-   * @default: '2.5.4'
+   * Redoc version loaded from the CDN (only used if standalone is false). Supported range: ^3.0.0.
+   * Set to "3.x" to always load the newest Redoc 3 version or "latest" to load the newest Redoc version (may be a
+   * not supported major version).
+   * @default: '3.0.1'
    */
   redocVersion?: string = DEFAULT_REDOC_VERSION;
 
   /**
-   * In standalone mode NestJSRedox checks if the installed redoc version is supported (^2.5.0) and throws an error
-   * otherwise. Enable this to skip the check, e.g. if you want to try out a newer major version of redoc.
+   * In standalone mode NestJSRedox checks if the installed redoc version is supported (^3.0.0) and throws an error
+   * otherwise. Enable this to skip the check.
    * @default: false
    */
   allowUnsupportedRedocVersion?: boolean = false;
+
+  /**
+   * Custom CSS added to the page. Redoc 3 is themed using CSS variables, e.g.
+   * `:root { --sidebar-width: 222px; }`. See https://redocly.com/docs/realm/branding/css-variables
+   */
+  customCss?: string;
 
   /**
    * Overwrites given headers after nestjs-redox set default headers (e.g. content security policy).

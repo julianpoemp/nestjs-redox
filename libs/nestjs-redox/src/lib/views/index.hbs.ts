@@ -1,55 +1,58 @@
-// retrieved from https://github.com/Redocly/redoc/blob/main/docs/deployment/html.md
+// retrieved from https://redocly.com/docs/redoc/v3.x/deployment/html
 
 export const REDOC_HANDLEBAR = `
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{ document.info.title }}</title>
+    <title>{{ title }}</title>
     <meta charset="utf-8" />
     {{#if redoxOptions.favicon.url }}
     <link rel="shortcut icon" type="image/x-icon" href="{{{ redoxOptions.favicon.url }}}" />
     {{/if}}
-    {{#unless redoxOptions.disableGoogleFont}}
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
-    {{/unless}}
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
+    <style nonce="{{{nonce}}}">
         body, html, #redoc-container {
           padding:0;
           margin:0;
         }
     </style>
-    {{#unless redoxOptions.standalone}}
-    <script src="https://cdn.redoc.ly/redoc/{{redocCDNVersion}}/bundles/redoc.standalone.js" nonce="{{{nonce}}}"> </script>
-    {{else}}
-    <script src="{{baseUrlForRedocUI}}redoc.standalone.js" nonce="{{{nonce}}}"></script>
-    {{/unless}}
   </head>
   <body>
     <div id="redoc-container"></div>
 
-    <script type="application/javascript" nonce="{{{nonce}}}">
+    <script type="module" nonce="{{{nonce}}}">
+      import { init } from '{{{ redocScriptUrl }}}';
+
+      const container = document.getElementById('redoc-container');
+      const redocOptions = {{{json redocOptions}}};
+
       function b64ToString(base64String) {
         const binString = atob(base64String);
         const decodedBytes = Uint8Array.from(binString, (m) => m.codePointAt(0));
         return new TextDecoder().decode(decodedBytes);
       }
 
+      try {
       {{#if documentURL}}
-        Redoc.init('{{documentURL}}', {{{json redocOptions}}}, document.getElementById('redoc-container'))
+        init({{{json documentURL}}}, redocOptions, container);
       {{else}}
         const base64Document = \`
 {{{ base64Document }}}
 \`;
-
-        try {
-          const spec = JSON.parse(b64ToString(base64Document));
-          Redoc.init(spec, {{{json redocOptions}}}, document.getElementById('redoc-container'))
-        } catch (e) {
-          alert(e?.message ?? e);
-        }
+        const spec = JSON.parse(b64ToString(base64Document.replace(/\\s/g, '')));
+        init(spec, redocOptions, container);
       {{/if}}
+      } catch (e) {
+        console.error('NestJSRedox: failed to render Redoc', e);
+        container.textContent = 'NestJSRedox: failed to render Redoc: ' + (e?.message ?? e);
+      }
     </script>
+    {{#if redoxOptions.customCss}}
+    <!-- placed at the end of the body so that it overrides the CSS variables Redoc injects into the head -->
+    <style nonce="{{{nonce}}}">
+{{{ redoxOptions.customCss }}}
+    </style>
+    {{/if}}
   </body>
 </html>
 `;
