@@ -2,12 +2,13 @@
 
 <p style="text-align: center;" align="center">This <a href="https://docs.nestjs.com/">NestJS</a> module enables to auto-generate beautiful API docs using <a href="https://www.openapis.org/">Swagger</a> and <a href="https://github.com/Redocly/redoc/tree/main">Redoc</a>. It supports NestJS 11, ExpressJS and Fastify.</p>
 
-<img src="https://raw.githubusercontent.com/Redocly/redoc/main/demo/redoc-demo.png" />
+<img src="https://raw.githubusercontent.com/Redocly/redoc/ed30fc53d2f9a8ba24a5fb5a0f50150091767cc9/demo/redoc-demo.png" />
 
 ## Features
 
 - NestJS 11 support
 - ExpressJS and Fastify support
+- Redoc v3 support with modern interface
 - Multi-user auth basic support
 - Option "standalone" for self hosted redoc bundles without requesting a CDN.
 - Option to disable Google fonts

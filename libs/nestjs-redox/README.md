@@ -2,12 +2,13 @@
 
 <p style="text-align: center;" align="center">This <a href="https://docs.nestjs.com/">NestJS</a> module enables to auto-generate beautiful API docs using <a href="https://www.openapis.org/">Swagger</a> and <a href="https://github.com/Redocly/redoc/tree/main">Redoc</a>. It supports NestJS 11, ExpressJS and Fastify.</p>
 
-<img src="https://raw.githubusercontent.com/Redocly/redoc/main/demo/redoc-demo.png" />
+<img src="https://raw.githubusercontent.com/Redocly/redoc/ed30fc53d2f9a8ba24a5fb5a0f50150091767cc9/demo/redoc-demo.png" />
 
 ## Features
 
 - NestJS 11 support
 - ExpressJS and Fastify support
+- Redoc v3 support with modern interface
 - Multi-user auth basic support
 - Option "standalone" for self hosted redoc bundles without requesting a CDN.
 - Option to disable Google fonts
@@ -54,8 +55,15 @@ Using the "standalone" Option in combination with "disableGoogleFont" respects t
 
 ### Standalone
 
-By default NestJSRedox automatically loads the redoc bundle from a CDN. If you want to host it yourself, install redoc via `npm install redoc` and set `standalone` in RedoxOptions parameter to true. An additional fix replaces the redoc logo URL with a local saved image.
+By default NestJSRedox automatically loads the redoc bundle from a CDN. If you want to host it yourself, install redoc via `npm install "redoc@^2.5.4"` and set `standalone` in RedoxOptions parameter to true. An additional fix replaces the redoc logo URL with a local saved image.
 See chapter "setup".
+
+### Supported Redoc versions
+
+NestJSRedox supports Redoc `^2.5.0`. Redoc 3 is not supported yet.
+
+- **CDN (default):** NestJSRedox loads a pinned Redoc version (`2.5.4`) from the CDN. You can change it using the `redocVersion` option, e.g. `redocVersion: '2.5.0'`. `redocVersion: 'latest'` always loads the newest Redoc release, which may be an unsupported major version.
+- **Standalone:** redoc is an optional peer dependency (`^2.5.0`), so npm reports a conflict if you install an unsupported version. On startup NestJSRedox also checks the installed version and throws an error if it isn't `^2.5.0`. Set `allowUnsupportedRedocVersion: true` to skip this check.
 
 ## Setup
 
@@ -136,7 +144,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
 
   // ...
-  
+
   const swaggerConfig = new DocumentBuilder()
     .setTitle('NESTJS-REDOX API')
     .setDescription('some description')
@@ -178,7 +186,7 @@ async function bootstrap() {
   NestjsRedoxModule.setup('reference', app, document, redoxOptions, redocOptions);
 
   //... 
-  
+
   await app.listen(port);
 }
 
