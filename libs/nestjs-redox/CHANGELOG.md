@@ -2,6 +2,16 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.4.0](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.3.3...nestjs-redox-2.4.0) (2026-11-03)
+
+### Features
+
+* **nestjs-redox:** allow to load another CDN version ([cf9ac0e](https://github.com/julianpoemp/nestjs-redox/commit/cf9ac0e09e0c7d92bcd129240511c9df3984abc9))
+
+### BREAKING CHANGES
+
+* **nestjs-redox:** Redoc version less v3 supported only. Redoc v3 support coming soon
+
 ## [2.3.3](https://github.com/julianpoemp/nestjs-redox/compare/nestjs-redox-2.3.2...nestjs-redox-2.3.3) (2026-05-28)
 
 
